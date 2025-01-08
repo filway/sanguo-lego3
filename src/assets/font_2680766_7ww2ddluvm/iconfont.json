@@ -1,0 +1,51 @@
+{
+  "id": "2680766",
+  "name": "sanguo-logo",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "6367956",
+      "name": "下载",
+      "font_class": "download",
+      "unicode": "e662",
+      "unicode_decimal": 58978
+    },
+    {
+      "icon_id": "21144614",
+      "name": "编辑",
+      "font_class": "bianji",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "4138813",
+      "name": "素材",
+      "font_class": "sucai",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "4784116",
+      "name": "图标",
+      "font_class": "tubiao",
+      "unicode": "e659",
+      "unicode_decimal": 58969
+    },
+    {
+      "icon_id": "9626971",
+      "name": "颜色",
+      "font_class": "yanse",
+      "unicode": "e886",
+      "unicode_decimal": 59526
+    },
+    {
+      "icon_id": "17521048",
+      "name": "横向文本",
+      "font_class": "hengxiangwenben",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    }
+  ]
+}
