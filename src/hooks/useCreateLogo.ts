@@ -100,7 +100,7 @@ const useCreateLogo = async (
         weight: "bolder",
       })
       .attr({
-        fill: trueNameColor,
+        fill: `#${item.main_color}`,
         dx: nameDX,
         dy: nameDY,
         "text-anchor": "middle",

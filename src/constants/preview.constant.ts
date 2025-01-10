@@ -137,26 +137,54 @@ export const imgNameArrNew: any[] = [
     'aspectRatio': '400/400',
     // viewBox
     'viewBox': '0 0 400 400',
-    // 横版排版的 g标签的 transform 属性
-    'gTransform0': 'matrix(1, 0, 0, 1, 100, 176) scale(0.55)',
-    // 竖版排版的 g标签的 transform 属性
-    'gTransform1': 'matrix(1, 0, 0, 1, 100, 176) scale(0.55)',
+    // 素材的svg渲染数组配置
+    'svgData': [
+      {
+        // 横版排版的 g标签的 transform 属性
+        'gTransform0': 'matrix(1, 0, 0, 1, 100, 176) scale(0.55)',
+        // 竖版排版的 g标签的 transform 属性
+        'gTransform1': 'matrix(1, 0, 0, 1, 100, 176) scale(0.55)',
+        // 字体文字取值, 1: 代表取后端返回的main_color 2: 代码固定取值黑色 #000000
+        'fontColorType': 1
+      }
+    ]
   },
   {
     'id': '405125',
     'name': '极简双色马克杯',
     'aspectRatio': '375/250',
     'viewBox': '0 0 375 250',
-    'gTransform0': 'matrix(1, 0.3, 0, 1, 104, 87) scale(0.2)',
-    'gTransform1': 'matrix(1, 0.3, 0, 1, 104, 87) scale(0.2)',
+    // 这里有两个，是因为有两个杯子，都需要渲染svg Logo和文字信息
+    'svgData': [
+      {
+        'gTransform0': 'matrix(1, 0.3, 0, 1, 104, 87) scale(0.2)',
+        'gTransform1': 'matrix(1, 0.3, 0, 1, 104, 87) scale(0.2)',
+        'fontColorType': 1
+      },
+      {
+        'gTransform0': 'matrix(1, -0.2, 0, 1, 198, 92) scale(0.2)',
+        'gTransform1': 'matrix(1, 0.3, 0, 1, 104, 87) scale(0.2)',
+        'fontColorType': 2
+      }
+    ]
   },
   {
     'id': '417400',
     'name': '极简科技感名片',
     'aspectRatio': '375/250',
     'viewBox': '0 0 375 250',
-    'gTransform0': 'matrix(1, 0.3, 0, 1, 104, 87) scale(0.2)',
-    'gTransform1': 'matrix(1, 0.3, 0, 1, 104, 87) scale(0.2)',
+    'svgData': [
+      {
+        'gTransform0': 'matrix(1, 0.3, 0, 1, 104, 87) scale(0.2)',
+        'gTransform1': 'matrix(1, 0.3, 0, 1, 104, 87) scale(0.2)',
+        'fontColorType': 2
+      },
+      {
+        'gTransform0': 'matrix(1, -0.2, 0, 1, 198, 92) scale(0.2)',
+        'gTransform1': 'matrix(1, 0.3, 0, 1, 104, 87) scale(0.2)',
+        'fontColorType': 1
+      }
+    ]
   }
 ]
 

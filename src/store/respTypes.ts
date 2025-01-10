@@ -6,6 +6,7 @@ interface AttrProps {
   title: string;
   tips: string;
   free_statement: string;
+  price_str: string
 }
 
 export interface RespData<T = []> {

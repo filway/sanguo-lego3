@@ -399,8 +399,33 @@ export const getSvgHtmlNew = (logoList: any[]): any[] => {
       $(`.svg-logo${i} svg`).attr('height', '110')
 
       const parser = new DOMParser()
-      const doc = parser.parseFromString($.html(), 'text/xml')
-      htmlArr[i][imgIndex] = doc.getElementsByClassName(`svg${i}`)[0]
+      let doc: any = null
+
+      const svgData = imgName.svgData
+      // 这里的svgData有可能有多个, 需要对应生成多个svgCode
+      const svgCodes = svgData.map((item: any) => {
+          // 文本颜色取值类型
+          const fontColorType = item.fontColorType
+          if (fontColorType === 1) {
+            // 去接口返回的main_color, 先设置.svg-name0和.svg-slogan0的fill
+            $(`.svg-name${i}`).attr('fill', logoList[i].main_color)
+            $(`.svg-slogan${i}`).attr('fill', logoList[i].main_color)
+          } else {
+            // 固定取值黑色
+            $(`.svg-name${i}`).attr('fill', '#000000')
+            $(`.svg-slogan${i}`).attr('fill', '#000000')
+          }
+          doc = parser.parseFromString($.html(), 'text/xml')
+
+          return doc.getElementsByClassName(`svg${i}`)[0]
+      })
+
+      
+      htmlArr[i][imgIndex] = {
+        'svgCode': doc.getElementsByClassName(`svg${i}`)[0],
+        svgCodes,
+        ...imgName
+      }
     })
   }
   return htmlArr
