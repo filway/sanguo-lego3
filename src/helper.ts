@@ -412,8 +412,9 @@ export const getSvgHtmlNew = (logoList: any[]): any[] => {
             $(`.svg-slogan${i}`).attr('fill', logoList[i].main_color)
           } else {
             // 固定取值黑色
-            $(`.svg-name${i}`).attr('fill', '#000000')
-            $(`.svg-slogan${i}`).attr('fill', '#000000')
+            const customColor = logoList[i].main_color === '#000000' ? '#FFFFFF' : '#000000'
+            $(`.svg-name${i}`).attr('fill', customColor)
+            $(`.svg-slogan${i}`).attr('fill', customColor)
           }
           doc = parser.parseFromString($.html(), 'text/xml')
 

@@ -72,6 +72,15 @@
                 <image :href="require(`../assets/img/${item.id}/change_1.png`)" width="100%" height="100%" 
                        preserveAspectRatio="xMidYMid meet" 
                        :filter="`url(#colorize1-${key})`"/>
+
+                <g 
+                    class="insert-g" 
+                    v-for="(svgData, index) in item.svgData.filter(d => d.position === 'before')" 
+                    :key="`before-${index}`"
+                    v-html="svgData" 
+                    :transform="key%2 === 0 ? svgData.gTransform0 : svgData.gTransform1" 
+                />
+
                 <image :href="require(`../assets/img/${item.id}/change_2.png`)" width="100%" height="100%" 
                        preserveAspectRatio="xMidYMid meet" 
                        :filter="`url(#colorize2-${key})`"/>
@@ -82,7 +91,13 @@
 
                 <!-- 循环item下面的svgData，预留相应数量的g标签，用于插入svg代码 -->
                 <!-- key为偶数, 横版 -->
-                <g class="insert-g" v-for="(svgData, index) in item.svgData" :key="index" v-html="svgData" :transform="key%2 === 0 ? svgData.gTransform0 : svgData.gTransform1" />
+                <g 
+                    class="insert-g" 
+                    v-for="(svgData, index) in item.svgData.filter(d => d.position === 'after')" 
+                    :key="`after-${index}`"
+                    v-html="svgData" 
+                    :transform="key%2 === 0 ? svgData.gTransform0 : svgData.gTransform1" 
+                />
           </svg>
       </div>
 

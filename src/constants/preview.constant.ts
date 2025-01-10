@@ -145,7 +145,8 @@ export const imgNameArrNew: any[] = [
         // 竖版排版的 g标签的 transform 属性
         'gTransform1': 'matrix(1, 0, 0, 1, 100, 176) scale(0.55)',
         // 字体文字取值, 1: 代表取后端返回的main_color 2: 代码固定取值黑色 #000000
-        'fontColorType': 1
+        'fontColorType': 1,
+        'position': 'after'
       }
     ]
   },
@@ -159,12 +160,14 @@ export const imgNameArrNew: any[] = [
       {
         'gTransform0': 'matrix(1, 0.3, 0, 1, 104, 87) scale(0.2)',
         'gTransform1': 'matrix(1, 0.3, 0, 1, 104, 87) scale(0.2)',
-        'fontColorType': 1
+        'fontColorType': 1,
+        'position': 'after'
       },
       {
         'gTransform0': 'matrix(1, -0.2, 0, 1, 198, 92) scale(0.2)',
-        'gTransform1': 'matrix(1, 0.3, 0, 1, 104, 87) scale(0.2)',
-        'fontColorType': 2
+        'gTransform1': 'matrix(1, -0.2, 0, 1, 198, 92) scale(0.2)',
+        'fontColorType': 2,
+        'position': 'after'
       }
     ]
   },
@@ -175,14 +178,36 @@ export const imgNameArrNew: any[] = [
     'viewBox': '0 0 375 250',
     'svgData': [
       {
-        'gTransform0': 'matrix(1, 0.3, 0, 1, 104, 87) scale(0.2)',
-        'gTransform1': 'matrix(1, 0.3, 0, 1, 104, 87) scale(0.2)',
-        'fontColorType': 2
+        'gTransform0': 'matrix(1, -0.45, 0, 1, 81, 120) scale(0.25)',
+        'gTransform1': 'matrix(1, -0.45, 0, 1, 81, 120) scale(0.25)',
+        'fontColorType': 2,
+        'position': 'after'
       },
       {
-        'gTransform0': 'matrix(1, -0.2, 0, 1, 198, 92) scale(0.2)',
-        'gTransform1': 'matrix(1, 0.3, 0, 1, 104, 87) scale(0.2)',
-        'fontColorType': 1
+        'gTransform0': 'matrix(1, 0.2, 0, 1, 183, 59) scale(0.3)',
+        'gTransform1': 'matrix(1, 0.2, 0, 1, 183, 59) scale(0.3)',
+        'fontColorType': 1,
+        'position': 'after'
+      }
+    ]
+  },
+  {
+    'id': '402739',
+    'name': '双色手提袋纸袋打包袋',
+    'aspectRatio': '200/150',
+    'viewBox': '0 0 200 150',
+    'svgData': [
+      {
+        'gTransform0': 'matrix(1, -0.05, 0, 1, 41, 65) scale(0.3)',
+        'gTransform1': 'matrix(1, -0.05, 0, 1, 31, 54) scale(0.4)',
+        'fontColorType': 2,
+        'position': 'before'
+      },
+      {
+        'gTransform0': 'matrix(1, -0.01, 0.3, 1, 99, 59) scale(0.3)',
+        'gTransform1': 'matrix(1, -0.01, 0.3, 1, 85, 49) scale(0.4)',
+        'fontColorType': 1,
+        'position': 'after'
       }
     ]
   }
