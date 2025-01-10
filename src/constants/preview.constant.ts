@@ -137,6 +137,13 @@ export const imgNameArrNew: any[] = [
     'aspectRatio': '400/400',
     // viewBox
     'viewBox': '0 0 400 400',
+     // Define rendering order of all elements
+    'layers': [
+      { type: 'change1' },
+      { type: 'change2' },
+      { type: 'bg' },
+      { type: 'svg', svgIndex: 0 }, // Use first svgData
+    ],
     // 素材的svg渲染数组配置
     'svgData': [
       {
@@ -146,7 +153,6 @@ export const imgNameArrNew: any[] = [
         'gTransform1': 'matrix(1, 0, 0, 1, 100, 176) scale(0.55)',
         // 字体文字取值, 1: 代表取后端返回的main_color 2: 代码固定取值黑色 #000000
         'fontColorType': 1,
-        'position': 'after'
       }
     ]
   },
@@ -155,19 +161,24 @@ export const imgNameArrNew: any[] = [
     'name': '极简双色马克杯',
     'aspectRatio': '375/250',
     'viewBox': '0 0 375 250',
+    'layers': [
+      { type: 'change1' },
+      { type: 'change2' },
+      { type: 'bg' },
+      { type: 'svg', svgIndex: 0 }, // Use first svgData
+      { type: 'svg', svgIndex: 1 }  // Use second svgData
+    ],
     // 这里有两个，是因为有两个杯子，都需要渲染svg Logo和文字信息
     'svgData': [
       {
         'gTransform0': 'matrix(1, 0.3, 0, 1, 104, 87) scale(0.2)',
         'gTransform1': 'matrix(1, 0.3, 0, 1, 104, 87) scale(0.2)',
         'fontColorType': 1,
-        'position': 'after'
       },
       {
         'gTransform0': 'matrix(1, -0.2, 0, 1, 198, 92) scale(0.2)',
         'gTransform1': 'matrix(1, -0.2, 0, 1, 198, 92) scale(0.2)',
         'fontColorType': 2,
-        'position': 'after'
       }
     ]
   },
@@ -176,18 +187,23 @@ export const imgNameArrNew: any[] = [
     'name': '极简科技感名片',
     'aspectRatio': '375/250',
     'viewBox': '0 0 375 250',
+    'layers': [
+      { type: 'change1' },
+      { type: 'change2' },
+      { type: 'bg' },
+      { type: 'svg', svgIndex: 0 }, // Use first svgData
+      { type: 'svg', svgIndex: 1 }  // Use second svgData
+    ],
     'svgData': [
       {
         'gTransform0': 'matrix(1, -0.45, 0, 1, 81, 120) scale(0.25)',
         'gTransform1': 'matrix(1, -0.45, 0, 1, 81, 120) scale(0.25)',
         'fontColorType': 2,
-        'position': 'after'
       },
       {
         'gTransform0': 'matrix(1, 0.2, 0, 1, 183, 59) scale(0.3)',
         'gTransform1': 'matrix(1, 0.2, 0, 1, 183, 59) scale(0.3)',
         'fontColorType': 1,
-        'position': 'after'
       }
     ]
   },
@@ -196,18 +212,157 @@ export const imgNameArrNew: any[] = [
     'name': '双色手提袋纸袋打包袋',
     'aspectRatio': '200/150',
     'viewBox': '0 0 200 150',
+    'layers': [
+      { type: 'change1' },
+      { type: 'svg', svgIndex: 0 }, // Use first svgData
+      { type: 'change2' },
+      { type: 'bg' },
+      { type: 'svg', svgIndex: 1 }  // Use second svgData
+    ],
     'svgData': [
       {
         'gTransform0': 'matrix(1, -0.05, 0, 1, 41, 65) scale(0.3)',
         'gTransform1': 'matrix(1, -0.05, 0, 1, 31, 54) scale(0.4)',
         'fontColorType': 2,
-        'position': 'before'
       },
       {
         'gTransform0': 'matrix(1, -0.01, 0.3, 1, 99, 59) scale(0.3)',
         'gTransform1': 'matrix(1, -0.01, 0.3, 1, 85, 49) scale(0.4)',
         'fontColorType': 1,
-        'position': 'after'
+      }
+    ]
+  },
+  {
+    'id': '402543',
+    'name': '双色搪瓷杯马克杯',
+    'aspectRatio': '200/150',
+    'viewBox': '0 0 200 150',
+    'layers': [
+      { type: 'change1' },
+      { type: 'change2' },
+      { type: 'bg' },
+      { type: 'svg', svgIndex: 0 }, // Use first svgData
+      { type: 'svg', svgIndex: 1 }  // Use second svgData
+    ],
+    'svgData': [
+      {
+        'gTransform0': 'matrix(1, 0.1, 0, 1, 20, 55) scale(0.3)',
+        'gTransform1': 'matrix(1, 0.1, 0, 1, 20, 55) scale(0.3)',
+        'fontColorType': 2,
+      },
+      {
+        'gTransform0': 'matrix(1, 0.05, 0, 1, 95, 65) scale(0.35)',
+        'gTransform1': 'matrix(1, 0.05, 0, 1, 95, 65) scale(0.35)',
+        'fontColorType': 1,
+      }
+    ]
+  },
+  {
+    'id': '400789',
+    'name': '咖啡杯纸杯',
+    'aspectRatio': '200/145',
+    'viewBox': '0 0 200 145',
+     // Define rendering order of all elements
+     'layers': [
+      { type: 'change2' },
+      { type: 'svg', svgIndex: 0 }, // Use first svgData
+      { type: 'change1' },
+      { type: 'bg' },
+    ],
+    'svgData': [
+      {
+        'gTransform0': 'matrix(1, 0, 0, 1, 54, 48) scale(0.3)',
+        'gTransform1': 'matrix(1, 0, 0, 1, 54, 44) scale(0.3)',
+        'fontColorType': 1,
+      },
+    ]
+  },
+  {
+    'id': '403021',
+    'name': '家庭办公室桌面',
+    'aspectRatio': '200/133',
+    'viewBox': '0 0 200 133',
+    'layers': [
+      { type: 'bg' },
+      { type: 'svg', svgIndex: 0 },
+    ],
+    'svgData': [
+      {
+        'gTransform0': 'matrix(1, 0, 0, 1, 66, 44) scale(0.35)',
+        'gTransform1': 'matrix(1, 0, 0, 1, 66, 44) scale(0.35)',
+        'fontColorType': 1,
+      },
+    ]
+  },
+  {
+    'id': '400618',
+    'name': '城市户外指路牌路标',
+    'aspectRatio': '200/150',
+    'viewBox': '0 0 200 150',
+    'layers': [
+      { type: 'change1' },
+      { type: 'change2' },
+      { type: 'bg' },
+      { type: 'svg', svgIndex: 0 }, // Use first svgData
+    ],
+    'svgData': [
+      {
+        'gTransform0': 'matrix(1, -0.16, 0, 1, 94, 31) scale(0.3)',
+        'gTransform1': 'matrix(1, -0.16, 0, 1, 94, 31) scale(0.3)',
+        'fontColorType': 1,
+      },
+    ]
+  },
+  {
+    'id': '419186',
+    'name': '室内展厅发布会演讲',
+    'aspectRatio': '200/133',
+    'viewBox': '0 0 200 133',
+    'layers': [
+      { type: 'change1' },
+      { type: 'svg', svgIndex: 0 },
+    ],
+    'svgData': [
+      {
+        'gTransform0': 'matrix(1, 0, 0, 1, 50, 10) scale(0.5)',
+        'gTransform1': 'matrix(1, 0, 0, 1, 50, 10) scale(0.5)',
+        'fontColorType': 1,
+      },
+    ]
+  },
+  {
+    'id': '373614',
+    'name': '社交媒体点赞喜欢样机',
+    'aspectRatio': '400/400',
+    'viewBox': '0 0 400 400',
+    'layers': [
+      { type: 'bg' },
+      { type: 'svg', svgIndex: 0 },
+    ],
+    'svgData': [
+      {
+        'gTransform0': 'matrix(1, 0, 0, 1, 130, 240) scale(0.3)',
+        'gTransform1': 'matrix(1, 0, 0, 1, 130, 240) scale(0.3)',
+        'fontColorType': 1,
+      },
+    ]
+  },
+  {
+    'id': '400808',
+    'name': '日历logo',
+    'aspectRatio': '200/150',
+    'viewBox': '0 0 200 150',
+    'layers': [
+      { type: 'change1' },
+      { type: 'change2' },
+      { type: 'bg' },
+      { type: 'svg', svgIndex: 0 }, // Use first svgData
+    ],
+    'svgData': [
+      {
+        'gTransform0': 'matrix(1, 0, 0, 1, 77, 26) scale(0.2, 0.2) rotate(45)',
+        'gTransform1': 'matrix(1, 0, 0, 1, 77, 26) scale(0.2, 0.2) rotate(45)',
+        'fontColorType': 2,
       }
     ]
   }

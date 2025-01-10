@@ -68,36 +68,34 @@
                     </filter>
                 </defs>
                 
-                <!-- Colorable images -->
-                <image :href="require(`../assets/img/${item.id}/change_1.png`)" width="100%" height="100%" 
-                       preserveAspectRatio="xMidYMid meet" 
-                       :filter="`url(#colorize1-${key})`"/>
+               <!-- Render layers in configured order -->
+                  <template v-for="(layer, index) in item.layers" :key="index">
+                    <!-- change1 layer -->
+                    <image v-if="layer.type === 'change1'"
+                          :href="require(`../assets/img/${item.id}/change_1.png`)" 
+                          width="100%" height="100%"
+                          preserveAspectRatio="xMidYMid meet"
+                          :filter="`url(#colorize1-${key})`"/>
 
-                <g 
-                    class="insert-g" 
-                    v-for="(svgData, index) in item.svgData.filter(d => d.position === 'before')" 
-                    :key="`before-${index}`"
-                    v-html="svgData" 
-                    :transform="key%2 === 0 ? svgData.gTransform0 : svgData.gTransform1" 
-                />
+                    <!-- change2 layer -->
+                    <image v-if="layer.type === 'change2'"
+                          :href="require(`../assets/img/${item.id}/change_2.png`)"
+                          width="100%" height="100%"
+                          preserveAspectRatio="xMidYMid meet"
+                          :filter="`url(#colorize2-${key})`"/>
 
-                <image :href="require(`../assets/img/${item.id}/change_2.png`)" width="100%" height="100%" 
-                       preserveAspectRatio="xMidYMid meet" 
-                       :filter="`url(#colorize2-${key})`"/>
+                    <!-- background layer -->
+                    <image v-if="layer.type === 'bg'"
+                          :href="require(`../assets/img/${item.id}/dt.png`)"
+                          width="100%" height="100%"
+                          preserveAspectRatio="xMidYMid meet"/>
 
-
-                <!-- Background image -->
-                <image :href="require(`../assets/img/${item.id}/dt.png`)" width="100%" height="100%" preserveAspectRatio="xMidYMid meet"/>
-
-                <!-- 循环item下面的svgData，预留相应数量的g标签，用于插入svg代码 -->
-                <!-- key为偶数, 横版 -->
-                <g 
-                    class="insert-g" 
-                    v-for="(svgData, index) in item.svgData.filter(d => d.position === 'after')" 
-                    :key="`after-${index}`"
-                    v-html="svgData" 
-                    :transform="key%2 === 0 ? svgData.gTransform0 : svgData.gTransform1" 
-                />
+                    <!-- svg layer -->
+                    <g v-if="layer.type === 'svg'"
+                      class="insert-g"
+                      v-html="item.svgData[layer.svgIndex]"
+                      :transform="key%2 === 0 ? item.svgData[layer.svgIndex].gTransform0 : item.svgData[layer.svgIndex].gTransform1"/>
+                  </template>
           </svg>
       </div>
 
@@ -357,14 +355,10 @@ export default defineComponent({
         const pageScreen: JQuery<HTMLElement> = $('.page-screen').eq(index)
         // 继续循环item
         item.forEach((item2: any, index2: number) => {
-          console.log(item2)
-          console.log(index2)
           // 找到当前页面的.page-screen下面的svg-wrapper下面的logosvg
           const logoSvg = pageScreen.find('.svg-wrapper').eq(index2).find('.logoSvg')
-          console.log(logoSvg)
           // 然后.logoSvg下面的g标签，插入svg代码，但是g标签有可能有多个，这和item2下面的svgData数组有关，因此需要一一对应插入svgCode
           item2.svgData.forEach((item3: any, index3: number) => {
-            console.log(item2.svgCode)
 
             // 找到当前页面的.page-screen下面的svg-wrapper下面的logosvg下面的.insert-g
             const g = logoSvg.find('.insert-g').eq(index3)
