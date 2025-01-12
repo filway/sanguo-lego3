@@ -365,6 +365,144 @@ export const imgNameArrNew: any[] = [
         'fontColorType': 2,
       }
     ]
+  },
+  {
+    'id': '400457',
+    'name': '保温瓶水瓶',
+    'aspectRatio': '200/160',
+    'viewBox': '0 0 200 160',
+    'layers': [
+      { type: 'change1' },
+      { type: 'change2' },
+      { type: 'bg' },
+      { type: 'svg', svgIndex: 0 }, // Use first svgData
+      { type: 'svg', svgIndex: 1 }  // Use second svgData
+    ],
+    'svgData': [
+      {
+        'gTransform0': 'matrix(1, 0, 0, 1, 46, 80) scale(0.2)',
+        'gTransform1': 'matrix(1, 0, 0, 1, 41, 74) scale(0.25)',
+        'fontColorType': 2,
+      },
+      {
+        'gTransform0': 'matrix(1, 0, 0, 1, 104, 84) scale(0.2) rotate(-19)',
+        'gTransform1': ' matrix(1, 0, 0, 1, 97, 82) scale(0.25) rotate(-19)',
+        'fontColorType': 1,
+      }
+    ]
+  },
+  {
+    'id': '399295',
+    'name': '日历',
+    'aspectRatio': '150/112',
+    'viewBox': '0 0 150 112',
+    'layers': [
+      { type: 'change1' },
+      { type: 'change2' },
+      { type: 'bg' },
+      { type: 'svg', svgIndex: 0 }, // Use first svgData
+    ],
+    'svgData': [
+      {
+        'gTransform0': 'matrix(1, 0, 0, 1, 45, 16) scale(0.4)',
+        'gTransform1': 'matrix(1, 0, 0, 1, 45, 14) scale(0.4)',
+        'fontColorType': 2,
+      },
+    ]
+  },
+  {
+    'id': '398259',
+    'name': '餐饮店一次性餐具筷子',
+    'aspectRatio': '200/86.4',
+    'viewBox': '0 0 200 86.4',
+    'layers': [
+      { type: 'change1' },
+      { type: 'bg' },
+      { type: 'svg', svgIndex: 0 }, // Use first svgData
+    ],
+    'svgData': [
+      {
+        'gTransform0': 'matrix(1, 0, 0, 1, 100, 24) scale(0.4)',
+        'gTransform1': 'matrix(1, 0, 0, 1, 120, 27) scale(0.3)',
+        'fontColorType': 2,
+      },
+    ]
+  },
+  {
+    'id': '417422',
+    'name': '圣诞节壁画',
+    'aspectRatio': '100/66',
+    'viewBox': '0 0 100 66',
+    'layers': [
+      { type: 'svg', svgIndex: 0 }, // Use first svgData
+      { type: 'bg' },
+    ],
+    'svgData': [
+      {
+        'gTransform0': 'matrix(1, 0, 0, 1, 9, 13) scale(0.5)',
+        'gTransform1': 'matrix(1, 0, 0, 1, 12, 8) scale(0.5)',
+        'fontColorType': 2,
+      },
+    ]
+  },
+  {
+    'id': '395559',
+    'name': '宠物猫狗牵引绳袋子',
+    'aspectRatio': '100/66.7',
+    'viewBox': '0 0 100 66.7',
+    'layers': [
+      { type: 'bg' },
+      { type: 'svg', svgIndex: 0 }, // Use first svgData
+    ],
+    'svgData': [
+      {
+        'gTransform0': 'matrix(1, 0, 0, 1, 9, 27) scale(0.4) rotate(348)',
+        'gTransform1': 'matrix(1, 0, 0, 1, 11, 26) scale(0.4) rotate(346)',
+        'fontColorType': 2,
+      },
+    ]
+  },
+  {
+    'id': '415305',
+    'name': '圣诞树圣诞球',
+    'aspectRatio': '150/100',
+    'viewBox': '0 0 150 100',
+    'layers': [
+      { type: 'change1' },
+      { type: 'bg' },
+      { type: 'svg', svgIndex: 0 }, // Use first svgData
+    ],
+    'svgData': [
+      {
+        'gTransform0': 'matrix(1, 0, 0, 1, 51, 40) scale(0.32)',
+        'gTransform1': 'matrix(1, 0, 0, 1, 52, 37) scale(0.32)',
+        'fontColorType': 1,
+      },
+    ]
+  },
+  {
+    'id': '412898',
+    'name': '团队标语牌手拿气泡卡片',
+    'aspectRatio': '150/102.7',
+    'viewBox': '0 0 150 102.7',
+    'layers': [
+      { type: 'change1' },
+      { type: 'bg' },
+      { type: 'svg', svgIndex: 0 }, // Use first svgData
+      { type: 'svg', svgIndex: 1 }, // Use first svgData
+    ],
+    'svgData': [
+      {
+        'gTransform0': 'matrix(1, 0, 0, 1, 31, 39) scale(0.15)',
+        'gTransform1': 'matrix(1, 0, 0, 1, 31, 38) scale(0.15)',
+        'fontColorType': 2,
+      },
+      {
+        'gTransform0': 'matrix(1, 0, 0, 1, 81, 30) scale(0.18)',
+        'gTransform1': 'matrix(1, 0, 0, 1, 81, 28) scale(0.18)',
+        'fontColorType': 2,
+      },
+    ]
   }
 ]
 

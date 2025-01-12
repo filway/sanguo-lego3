@@ -280,7 +280,7 @@ export const toTop = (): void => {
     if (top <= 0) {
       clearInterval(timeTop)
     }
-  }, 5)
+  }, 0)
 }
 
 // 修复svg代码，有时候会和cheerio有冲突

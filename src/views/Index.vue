@@ -99,62 +99,7 @@
           </svg>
       </div>
 
-        <div
-          :class="`page-bg page-bg-01 page-bg-img page-insert-${key}`"
-          :style="
-            `background-image: url(` +
-            require(`../assets/img/cj2/${bgImgIndexArr[key]}/1.jpg`) +
-            `)`
-          "
-        ></div>
-        <div class="page-bg page-bg-02">
-          <div
-            :class="`page-bg-img page-bg-02-left page-insert-${key}`"
-            :style="
-              `background-image: url(` +
-              require(`../assets/img/cj2/${bgImgIndexArr[key]}/2.jpg`) +
-              `)`
-            "
-          ></div>
-          <div class="page-bg-02-right">
-            <div
-              :class="`page-bg-img page-insert-${key}`"
-              :style="`background-color: #7F7F81`"
-            ></div>
-            <div
-              :class="`page-bg-img page-insert-${key}`"
-              :style="`background-color: #B2B2B2`"
-            ></div>
-          </div>
-        </div>
-        <div
-          :class="`page-bg page-bg-04 page-bg-img page-insert-${key}`"
-          :style="
-            `background-image: url(` +
-            require(`../assets/img/cj2/${bgImgIndexArr[key]}/6.jpg`) +
-            `)`
-          "
-        ></div>
-        <div
-          :class="`page-bg page-bg-07 page-bg-img page-insert-${key}`"
-          :style="`background-image: url(` + require(`../assets/img/cj/show3.png`) + `)`"
-        ></div>
-        <div
-          :class="`page-bg page-bg-05 page-bg-img page-insert-${key}`"
-          :style="
-            `background-image: url(` +
-            require(`../assets/img/cj2/${bgImgIndexArr[key]}/7.jpg`) +
-            `);height: 100vw`
-          "
-        ></div>
-        <div
-          :class="`page-bg page-bg-06 page-bg-img page-insert-${key}`"
-          :style="
-            `background-image: url(` +
-            require(`../assets/img/cj2/${bgImgIndexArr[key]}/8.jpg`) +
-            `);height: 80vw`
-          "
-        ></div>
+        
       </div>
     </div>
 
