@@ -1,46 +1,22 @@
 /* eslint-disable prettier/prettier */
 <template>
   <div class="homepage-container" :style="{ background: '#f8f8f8' }">
-    <preview-dialog
-      @close="closePreviewDialog"
-      :show="showPreview"
-      :logoId="currentId"
-      :previewData="previewData"
-      @clickDownload="openDownloadDialog"
-    ></preview-dialog>
+    <preview-dialog @close="closePreviewDialog" :show="showPreview" :logoId="currentId" :previewData="previewData"
+      @clickDownload="openDownloadDialog"></preview-dialog>
     <van-row class="logoTips">
       <van-col span="24">Logo结果选择</van-col>
     </van-row>
-    <van-loading
-      class="loadingBox"
-      v-if="isLoading"
-      style="text-align: center"
-      size="24px"
-      vertical
-      color="#fff"
-      >Logo生成中...</van-loading
-    >
+    <van-loading class="loadingBox" v-if="isLoading" style="text-align: center" size="24px" vertical
+      color="#fff">Logo生成中...</van-loading>
     <div v-show="!isLoading" class="page">
       <div class="logo-desc" v-show="currentPage === 0">
         {{ title }}
       </div>
-      <div
-        @click="openPreviewDialog(logo.materialId, logo.randomIndex, key)"
-        v-for="(logo, key) in logoList"
-        :key="key"
-        class="card-box"
-        v-show="currentPage === key"
-        style="visibility: hidden; position: absolute;"
-      >
+      <div @click="openPreviewDialog(logo.materialId, logo.randomIndex, key)" v-for="(logo, key) in logoList" :key="key"
+        class="card-box" v-show="currentPage === key" style="visibility: hidden; position: absolute;">
         <div class="logo-box">
-          <component
-            :is="'svg'"
-            baseProfile="full"
-            version="1.1"
-            :class="'svg' + key"
-            viewBox="0 0 686 380.78"
-            xmlns="http://www.w3.org/2000/svg"
-          />
+          <component :is="'svg'" baseProfile="full" version="1.1" :class="'svg' + key" viewBox="0 0 686 380.78"
+            xmlns="http://www.w3.org/2000/svg" />
         </div>
         <div class="text-box animate__animated animate__bounce">点击选择此方案</div>
       </div>
@@ -48,65 +24,51 @@
       <div v-show="logoList[currentPage] && logoList[currentPage].design" class="ll-box">
         <p class="page-p">{{ logoList[currentPage] ? logoList[currentPage].design : "" }}</p>
       </div>
-      <div
-        class="page-screen"
-        v-for="(logo, key) in logoList"
-        :key="key"
-        v-show="currentPage === key"
-      >
-      <!-- 新的效果图构造 -->
-      <div class="svg-wrapper" :id="`svgContainer-${key}-${item.id}`" :style="`background-color: ${logo.bg_color}; aspect-ratio: ${item.aspectRatio}`" v-for="(item) in imgNameArrNew" :key="item.id">
-          <svg :class="`logoSvg logoSvg${key}-1`" xmlns="http://www.w3.org/2000/svg" :viewBox="item.viewBox" >
-                <defs>
-                    <filter :id="`colorize1-${key}`">
-                        <feColorMatrix type="matrix" id="colorMatrix1"
-                            :values="convertColorToMatrix(`${logo.main_color}`)"/>
-                    </filter>
-                    <filter :id="`colorize2-${key}`">
-                        <feColorMatrix type="matrix" id="colorMatrix2"
-                            :values="convertColorToMatrix('#ffffff')"/>
-                    </filter>
-                </defs>
-                
-               <!-- Render layers in configured order -->
-                  <template v-for="(layer, index) in item.layers" :key="index">
-                    <!-- change1 layer -->
-                    <image v-if="layer.type === 'change1'"
-                          :href="require(`../assets/img/${item.id}/change_1.png`)" 
-                          width="100%" height="100%"
-                          preserveAspectRatio="xMidYMid meet"
-                          :filter="`url(#colorize1-${key})`"/>
+      <div class="page-screen" v-for="(logo, key) in logoList" :key="key" v-show="currentPage === key">
+        <!-- 新的效果图构造 -->
+        <div class="svg-wrapper" :id="`svgContainer-${key}-${item.id}`"
+          :style="`background-color: ${logo.bg_color}; aspect-ratio: ${item.aspectRatio}`"
+          v-for="(item) in imgNameArrNew" :key="item.id">
+          <svg :class="`logoSvg logoSvg${key}-1`" xmlns="http://www.w3.org/2000/svg" :viewBox="item.viewBox">
+            <defs>
+              <filter :id="`colorize1-${key}`">
+                <feColorMatrix type="matrix" id="colorMatrix1" :values="convertColorToMatrix(`${logo.main_color}`)" />
+              </filter>
+              <filter :id="`colorize2-${key}`">
+                <feColorMatrix type="matrix" id="colorMatrix2" :values="convertColorToMatrix('#ffffff')" />
+              </filter>
+            </defs>
 
-                    <!-- change2 layer -->
-                    <image v-if="layer.type === 'change2'"
-                          :href="require(`../assets/img/${item.id}/change_2.png`)"
-                          width="100%" height="100%"
-                          preserveAspectRatio="xMidYMid meet"
-                          :filter="`url(#colorize2-${key})`"/>
+            <!-- Render layers in configured order -->
+            <template v-for="(layer, index) in item.layers" :key="index">
+              <!-- change1 layer -->
+              <image v-if="layer.type === 'change1'" :href="require(`../assets/img/${item.id}/change_1.png`)"
+                width="100%" height="100%" preserveAspectRatio="xMidYMid meet" :filter="`url(#colorize1-${key})`" />
 
-                    <!-- background layer -->
-                    <image v-if="layer.type === 'bg'"
-                          :href="require(`../assets/img/${item.id}/dt.png`)"
-                          width="100%" height="100%"
-                          preserveAspectRatio="xMidYMid meet"/>
+              <!-- change2 layer -->
+              <image v-if="layer.type === 'change2'" :href="require(`../assets/img/${item.id}/change_2.png`)"
+                width="100%" height="100%" preserveAspectRatio="xMidYMid meet" :filter="`url(#colorize2-${key})`" />
 
-                    <!-- svg layer -->
-                    <g v-if="layer.type === 'svg'"
-                      class="insert-g"
-                      v-html="item.svgData[layer.svgIndex]"
-                      :transform="key%2 === 0 ? item.svgData[layer.svgIndex].gTransform0 : item.svgData[layer.svgIndex].gTransform1"/>
-                  </template>
+              <!-- background layer -->
+              <image v-if="layer.type === 'bg'" :href="require(`../assets/img/${item.id}/dt.png`)" width="100%"
+                height="100%" preserveAspectRatio="xMidYMid meet" />
+
+              <!-- svg layer -->
+              <g v-if="layer.type === 'svg'" class="insert-g" v-html="item.svgData[layer.svgIndex]"
+                :transform="key % 2 === 0 ? item.svgData[layer.svgIndex].gTransform0 : item.svgData[layer.svgIndex].gTransform1" />
+            </template>
           </svg>
-      </div>
+        </div>
 
-        
+
       </div>
     </div>
 
-    
 
-    <div v-show="!isLoading" class="select-button" @click="openPreviewDialog(logoList[currentPage].materialId, logoList[currentPage].randomIndex, currentPage)">
-        点击选择此方案
+
+    <div v-show="!isLoading" class="select-button"
+      @click="openPreviewDialog(logoList[currentPage].materialId, logoList[currentPage].randomIndex, currentPage)">
+      点击选择此方案
     </div>
 
     <div v-show="!isLoading" class="tipsBox">
@@ -115,22 +77,14 @@
         {{ tips }}
       </p>
     </div>
-    
+
     <div class="pageBox" v-show="!isLoading">
       <div class="pagenation-big" v-show="currentPage === 0" @click="nextPage()">下一款方案</div>
       <div class="pagenation-small-box">
-        <div
-          class="pagenation-small"
-          v-show="currentPage > 0 && currentPage < logoList.length - 1"
-          @click="prevPage()"
-        >
+        <div class="pagenation-small" v-show="currentPage > 0 && currentPage < logoList.length - 1" @click="prevPage()">
           上一款方案
         </div>
-        <div
-          class="pagenation-small"
-          v-show="currentPage > 0 && currentPage < logoList.length - 1"
-          @click="nextPage()"
-        >
+        <div class="pagenation-small" v-show="currentPage > 0 && currentPage < logoList.length - 1" @click="nextPage()">
           下一款方案
         </div>
       </div>
@@ -141,24 +95,16 @@
 
     <span v-html="cp"></span>
     <!-- 免责声明弹窗 -->
-    <van-dialog
-      v-if="free_statement && free_statement.length > 0"
-      v-model:show="isShowFreeStatement"
-      class="freeStatementDialog"
-      theme="round-button"
-      :confirm-button-text="confirmText"
-      width="90%"
-      transition="bounce"
-      :confirm-button-color="confirmTextColor"
-      :before-close="onCloseFreeStatementDialog"
-    >
+    <van-dialog v-if="free_statement && free_statement.length > 0" v-model:show="isShowFreeStatement"
+      class="freeStatementDialog" theme="round-button" :confirm-button-text="confirmText" width="90%"
+      transition="bounce" :confirm-button-color="confirmTextColor" :before-close="onCloseFreeStatementDialog">
       <div v-html="free_statement" class="content-box"></div>
     </van-dialog>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, provide, ref  } from 'vue'
+import { computed, defineComponent, onMounted, provide, ref } from 'vue'
 import { GlobalDataProps } from '../store/index'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
@@ -278,7 +224,7 @@ export default defineComponent({
         }
       })
 
-    
+
     onMounted(async () => {
       let { sn } = route.query
       localStorage.setItem('sn', sn as string)
@@ -363,6 +309,7 @@ export default defineComponent({
     font-weight: 300;
     font-size: 14px;
   }
+
   .loadingBox {
     text-align: center;
     height: 12rem;
@@ -374,12 +321,14 @@ export default defineComponent({
     color: #fff;
     border-radius: 5px;
   }
+
   .page-t {
     margin: 0.5rem 0 0 0;
     font-size: 5.333vw;
     text-align: center;
     margin-top: 1rem;
   }
+
   .ll-box {
     margin-top: 0.5rem;
     text-align: center;
@@ -410,7 +359,12 @@ export default defineComponent({
     flex-direction: column;
     align-items: center;
     padding: 0 1.8rem;
-    margin-top: 1rem;
+    padding-top: 1rem;
+    position: sticky;
+    bottom: 0;
+    padding-bottom: constant(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom);
+
     .pagenation-big {
       background-color: #0201fd;
       color: #fff;
@@ -422,10 +376,12 @@ export default defineComponent({
       margin-bottom: 0.5rem;
       cursor: pointer;
     }
+
     .pagenation-small-box {
       width: 300px;
       display: flex;
       justify-content: space-evenly;
+
       .pagenation-small {
         background-color: #0201fd;
         color: #fff;
@@ -438,6 +394,7 @@ export default defineComponent({
         cursor: pointer;
       }
     }
+
     // background: url("../assets/img/img_banner.jpg");
   }
 
@@ -461,18 +418,22 @@ export default defineComponent({
     padding: 0 0.8rem;
     margin-top: 0.5rem;
     margin-bottom: 0.4rem;
+
     .tips-title {
       margin-bottom: 0;
     }
+
     p {
       font-size: 15px;
     }
+
     color: #fff;
     background: #0201fd;
   }
 
   min-height: 100vh;
   padding: 0 1rem 0.5rem;
+
   .logo-desc {
     color: #fff;
     background-color: #0201fd;
@@ -484,17 +445,20 @@ export default defineComponent({
     align-items: center;
     margin-bottom: 1rem;
   }
+
   .page-title {
     font-size: 5.333vw;
     text-align: center;
     margin: 0.8rem 0;
   }
+
   .page-screen {
 
     .svg-wrapper {
       position: relative;
       width: 100%;
-      overflow: hidden; /* 防止内容溢出 */
+      overflow: hidden;
+      /* 防止内容溢出 */
 
       // 除了第一个，其余的margin-top都设置为1rem
       &:not(:first-child) {
@@ -507,7 +471,8 @@ export default defineComponent({
         left: 0;
         width: 100%;
         height: 100%;
-        display: block; /* 消除间隙 */
+        display: block;
+        /* 消除间隙 */
       }
     }
 
@@ -517,22 +482,28 @@ export default defineComponent({
       width: 100%;
       height: 100%;
     }
+
     .page-bg {
       height: 56vw;
     }
+
     .page-bg-img {
       background-size: 100% 100%;
       display: flex;
       justify-content: center;
       align-items: center;
     }
+
     .page-bg-02 {
       display: flex;
+
       .page-bg-02-left {
         width: 50%;
       }
+
       .page-bg-02-right {
         width: 50%;
+
         div {
           width: 100%;
           height: 50%;
@@ -540,6 +511,7 @@ export default defineComponent({
       }
     }
   }
+
   .card-box {
     display: flex;
     flex-direction: column;
@@ -548,15 +520,20 @@ export default defineComponent({
     background: #fff;
     border: 3px solid #9d9d9d;
     border-radius: 8px;
-    animation: zoomIn; /* referring directly to the animation's @keyframe declaration */
-    animation-duration: 1s; /* don't forget to set a duration! */
+    animation: zoomIn;
+    /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1s;
+
+    /* don't forget to set a duration! */
     .logo-box {
       height: 85%;
+
       svg {
         width: 100%;
         height: 100%;
       }
     }
+
     .text-box {
       text-align: center;
       color: #d9d9d9;

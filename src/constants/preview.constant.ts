@@ -362,7 +362,7 @@ export const imgNameArrNew: any[] = [
       {
         'gTransform0': 'matrix(1, 0, 0, 1, 77, 26) scale(0.2, 0.2) rotate(45)',
         'gTransform1': 'matrix(1, 0, 0, 1, 77, 26) scale(0.2, 0.2) rotate(45)',
-        'fontColorType': 2,
+        'fontColorType': 1,
       }
     ]
   },
@@ -441,7 +441,7 @@ export const imgNameArrNew: any[] = [
       {
         'gTransform0': 'matrix(1, 0, 0, 1, 9, 13) scale(0.5)',
         'gTransform1': 'matrix(1, 0, 0, 1, 12, 8) scale(0.5)',
-        'fontColorType': 2,
+        'fontColorType': 1,
       },
     ]
   },
@@ -458,7 +458,7 @@ export const imgNameArrNew: any[] = [
       {
         'gTransform0': 'matrix(1, 0, 0, 1, 9, 27) scale(0.4) rotate(348)',
         'gTransform1': 'matrix(1, 0, 0, 1, 11, 26) scale(0.4) rotate(346)',
-        'fontColorType': 2,
+        'fontColorType': 1,
       },
     ]
   },
