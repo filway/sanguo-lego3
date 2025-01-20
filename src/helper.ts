@@ -16,8 +16,8 @@ import cheerio from 'cheerio'
 import opentype from 'opentype.js'
 import { SVG } from '@svgdotjs/svg.js'
 import { imgNameArr, imgNameArrNew } from './constants/preview.constant'
-import {TemplateProps} from "@/store/templates";
-import { Ref } from "vue"
+import { TemplateProps } from '@/store/templates'
+import { Ref } from 'vue'
 
 export const materialDownLoad = (
   src: string,
@@ -296,8 +296,8 @@ export const getSvgHtml = (logoList: any[]): any[] => {
   //   logoList.length === 10
   //     ? [[], [], [], [], [], [], [], [], [], []]
   //     : [[], [], [], [], [], [], [], []]
-    // 这里修改为根据logoList的长度来循环来生成htmlArr
-  const  htmlArr: any[] = []
+  // 这里修改为根据logoList的长度来循环来生成htmlArr
+  const htmlArr: any[] = []
   for (let i = 0; i < logoList.length; i++) {
     htmlArr.push([])
   }
@@ -321,7 +321,7 @@ export const getSvgHtml = (logoList: any[]): any[] => {
       $('svg').css('transform', item.r)
       $('svg').css('margin-top', item.mt)
       $('svg').css('margin-right', item.mr)
-      if (imgIndex === 7) {
+      if (imgIndex === 0) {
         $('svg').css('filter', 'drop-shadow(rgba(0, 0, 0, 0.2) -10px 10px 0px)')
       }
 
@@ -340,7 +340,10 @@ export const getSvgHtml = (logoList: any[]): any[] => {
 }
 
 //替换svg元素
-export const  replaceSvgArea2 = (newXml: string, svgRef: Ref<SVGElement | null>) => {
+export const replaceSvgArea2 = (
+  newXml: string,
+  svgRef: Ref<SVGElement | null>
+) => {
   const div = document.createElement('div')
   newXml = newXml.replace(/<!--\s*(.*)\s*-->/, '')
   newXml = newXml.replace(/<\?xml.*\?>/, '')
@@ -351,23 +354,27 @@ export const  replaceSvgArea2 = (newXml: string, svgRef: Ref<SVGElement | null>)
   svgNode?.appendChild(div.childNodes[0])
 }
 
-export const replaceWhenLayoutChange2 = (template: TemplateProps, width: string, height: string, svgRef: Ref<SVGElement | null>) => {
+export const replaceWhenLayoutChange2 = (
+  template: TemplateProps,
+  width: string,
+  height: string,
+  svgRef: Ref<SVGElement | null>
+) => {
   const $ = cheerio.load(template.svg, {
     xml: true,
   })
   const logoElement = document.getElementsByClassName('svg-logo0')
   const { imageX, imageY } = getLayoutPropsByNameLength(
-      template.len,
-      template.randomIndex
+    template.len,
+    template.randomIndex
   )
   // 169
   $('svg')
-      .attr('width', width)
-      .attr('height', height)
-      .addClass('svg-logo0')
-      .attr('x', imageX.toString())
-      .attr('y', imageY.toString())
-
+    .attr('width', width)
+    .attr('height', height)
+    .addClass('svg-logo0')
+    .attr('x', imageX.toString())
+    .attr('y', imageY.toString())
 
   replaceSvgArea2($.html(), svgRef)
   //logoElement[0].outerHTML = $.html();
@@ -376,11 +383,11 @@ export const replaceWhenLayoutChange2 = (template: TemplateProps, width: string,
 }
 
 export const getSvgHtmlNew = (logoList: any[]): any[] => {
-   // 这里修改为根据logoList的长度来循环来生成htmlArr
-   const  htmlArr: any[] = []
-   for (let i = 0; i < logoList.length; i++) {
-     htmlArr.push([])
-   }
+  // 这里修改为根据logoList的长度来循环来生成htmlArr
+  const htmlArr: any[] = []
+  for (let i = 0; i < logoList.length; i++) {
+    htmlArr.push([])
+  }
   for (let i = 0; i < logoList.length; i++) {
     const svgObj = SVG(`.svg${i}`)
     svgObj.node.removeAttribute('xmlns:svgjs')
@@ -392,7 +399,6 @@ export const getSvgHtmlNew = (logoList: any[]): any[] => {
 
     //循环imgNamrArr
     imgNameArrNew.forEach((imgName, imgIndex) => {
-
       const $ = cheerio.load(svg, { xml: true })
 
       $(`.svg-logo${i} svg`).attr('width', '110')
@@ -404,47 +410,61 @@ export const getSvgHtmlNew = (logoList: any[]): any[] => {
       const svgData = imgName.svgData
       // 这里的svgData有可能有多个, 需要对应生成多个svgCode
       const svgCodes = svgData.map((item: any) => {
-          // 文本颜色取值类型
-          const fontColorType = item.fontColorType
-          if (fontColorType === 1) {
-            // 去接口返回的main_color, 先设置.svg-name0和.svg-slogan0的fill
-            $(`.svg-name${i}`).attr('fill', logoList[i].main_color)
-            $(`.svg-slogan${i}`).attr('fill', logoList[i].main_color)
-          } else {
-            // 固定取值黑色
-            const customColor = logoList[i].main_color === '#000000' ? '#FFFFFF' : '#000000'
-            $(`.svg-name${i}`).attr('fill', customColor)
-            $(`.svg-slogan${i}`).attr('fill', customColor)
-          }
-          doc = parser.parseFromString($.html(), 'text/xml')
+        // 文本颜色取值类型
+        const fontColorType = item.fontColorType
+        if (fontColorType === 1) {
+          // 去接口返回的main_color, 先设置.svg-name0和.svg-slogan0的fill
+          $(`.svg-name${i}`).attr('fill', logoList[i].main_color)
+          $(`.svg-slogan${i}`).attr('fill', logoList[i].main_color)
+        } else {
+          // 固定取值黑色
+          const customColor =
+            logoList[i].main_color === '#000000' ? '#FFFFFF' : '#000000'
+          $(`.svg-name${i}`).attr('fill', customColor)
+          $(`.svg-slogan${i}`).attr('fill', customColor)
+        }
+        doc = parser.parseFromString($.html(), 'text/xml')
 
-          return doc.getElementsByClassName(`svg${i}`)[0]
+        return doc.getElementsByClassName(`svg${i}`)[0]
       })
 
-      
       htmlArr[i][imgIndex] = {
-        'svgCode': doc.getElementsByClassName(`svg${i}`)[0],
+        svgCode: doc.getElementsByClassName(`svg${i}`)[0],
         svgCodes,
-        ...imgName
+        ...imgName,
       }
     })
   }
   return htmlArr
 }
 
+export const convertColorToMatrix = (hexColor: string): string => {
+  const r = parseInt(hexColor.substr(1, 2), 16) / 255
+  const g = parseInt(hexColor.substr(3, 2), 16) / 255
+  const b = parseInt(hexColor.substr(5, 2), 16) / 255
 
-export const convertColorToMatrix = ( hexColor: string): string => {
- const r = parseInt(hexColor.substr(1,2), 16) / 255;
- const g = parseInt(hexColor.substr(3,2), 16) / 255;
- const b = parseInt(hexColor.substr(5,2), 16) / 255;
- 
- const matrix = [
-   r, 0, 0, 0, 0,
-   0, g, 0, 0, 0,
-   0, 0, b, 0, 0,
-   0, 0, 0, 1, 0
- ].join(' ');
- 
-  return matrix;
+  const matrix = [
+    r,
+    0,
+    0,
+    0,
+    0,
+    0,
+    g,
+    0,
+    0,
+    0,
+    0,
+    0,
+    b,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+  ].join(' ')
+
+  return matrix
 }
-

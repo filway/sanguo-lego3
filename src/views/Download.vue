@@ -4,15 +4,8 @@
     <van-row class="content" :style="{ backgroundColor: bgColor }">
       <van-col span="24" v-if="!isSvgCode">
         <div class="logo-box" v-for="(logo, key) in logoList" :key="key">
-          <svg
-            :style="{ backgroundColor: '#ffffff' }"
-            ref="svgRef"
-            baseProfile="full"
-            version="1.1"
-            :class="'svg' + key"
-            viewBox="0 0 686 448"
-            xmlns="http://www.w3.org/2000/svg"
-          />
+          <svg :style="{ backgroundColor: '#ffffff' }" ref="svgRef" baseProfile="full" version="1.1"
+            :class="'svg' + key" viewBox="0 0 686 448" xmlns="http://www.w3.org/2000/svg" />
         </div>
       </van-col>
       <van-col span="24" v-else>
@@ -20,12 +13,8 @@
       </van-col>
     </van-row>
     <div class="buttonBox">
-      <van-button
-        color="linear-gradient(to right, rgb(118,178,234) , rgb(64,148,225))"
-        size="large"
-        type="primary"
-        @click="alertTips"
-      >
+      <van-button color="linear-gradient(to right, rgb(118,178,234) , rgb(64,148,225))" size="large" type="primary"
+        @click="alertTips">
         立即下载
       </van-button>
     </div>
@@ -60,36 +49,25 @@
         <p class="anwser">答：源文件需要使用专业的设计软件才可以打开，如PS、AI、CDR等</p>
       </div>
     </div>
-    <van-dialog
-      v-model:show="isShowInfoInput"
-      class="infoDialog"
-      show-cancel-button
-      width="95%"
-      :title="price_str"
-      :before-close="onCloseInfoDialog"
-      @open="openInfoDialog"
-    >
-      <!-- <p>
-        因源文件较大，我们将通过邮箱的方式发送给您，如邮箱接收不便，留下联系方式后可联系您的专属客服获取源文件
-      </p> -->
+    <van-dialog v-model:show="isShowInfoInput" class="infoDialog" show-cancel-button width="95%" :title="''"
+      :before-close="onCloseInfoDialog" @open="openInfoDialog">
+      <div class="infoTitleBox">
+        支付获取精美LOGO
+      </div>
+      <div class="infoContentBox">
+        <div class="infoContent1">
+          <span class="infoContentPrice">￥68.00</span>
+          <span class="infoContentOriginalPrice">原价: 199.00/次</span>
+          <span class="infoContentDesc">高端logo设计 助力行业发展</span>
+        </div>
+        <div class="infoContent2">
+          设计完成后提供源文件<br />别让价格限制了你的选择
+        </div>
+      </div>
       <van-field clearable label="" placeholder="请输入您的手机" v-model="info.phone" type="tel" />
-      <!-- <van-field
-        clearable
-        label=""
-        placeholder="请输入您的邮箱"
-        v-model="info.email"
-        type="email"
-      /> -->
     </van-dialog>
-    <van-dialog
-      v-model:show="isShowWxDialog"
-      class="wxDialog"
-      show-cancel-button
-      cancel-button-text="点击关闭"
-      confirm-button-text="复制微信号"
-      :before-close="copyWx"
-      width="90%"
-    >
+    <van-dialog v-model:show="isShowWxDialog" class="wxDialog" show-cancel-button cancel-button-text="点击关闭"
+      confirm-button-text="复制微信号" :before-close="copyWx" width="90%">
       <div class="image">
         <img src="../assets/img/cs.png" alt="" />
       </div>
@@ -98,7 +76,8 @@
         <div>微信号: {{ wx }}</div>
       </div>
     </van-dialog>
-    <van-dialog class="qrDialog" v-model:show="isShowQrCode" title="" :show-confirm-button="false" close-on-click-overlay>
+    <van-dialog class="qrDialog" v-model:show="isShowQrCode" title="" :show-confirm-button="false"
+      close-on-click-overlay>
       <div class="image">
         <img :src="qrCodeUrl" />
       </div>
@@ -114,7 +93,7 @@ import useCreateLogo from '@/hooks/useCreateLogo'
 import { useStore } from 'vuex'
 import { Dialog, Toast } from 'vant'
 import axios, { AxiosResponse } from 'axios'
-import {copyToClipboard, svgToBase64, findFontExt, replaceWhenLayoutChange2} from '@/helper'
+import { copyToClipboard, svgToBase64, findFontExt, replaceWhenLayoutChange2 } from '@/helper'
 import { SVG } from '@svgdotjs/svg.js'
 import { base64Data, RespData } from '@/store/respTypes'
 import { Canvg } from "canvg"
@@ -174,7 +153,7 @@ export default defineComponent({
               /**var p2 = /svgjs:data\s*?=\s*?([‘"])[\s\S]*?\1/g
                * 参数：mater_id（必填）  sn（必填） email(必填)  mobile(必填)  base64（必填） svg（必填）
                */
-                  // 去掉 .svg-logo 的transform属性
+              // 去掉 .svg-logo 的transform属性
               SVG('.svg-logo0').node.removeAttribute('transform')
               let svgObj = SVG('.svg0')
               svgObj.node.removeAttribute('xmlns:svgjs')
@@ -238,45 +217,45 @@ export default defineComponent({
 
                     const downloadSvg = (fstrImage: string) => {
                       axios
-                          .post('/downsvg', {
-                            mater_id: currentId,
-                            sn: localStorage.getItem('sn'),
-                            mobile: info.value.phone,
-                            email: info.value.email,
-                            base64: fstrImage,
-                            svg: svg,
-                          })
-                          .then(resp => {
-                            console.log(resp);
-                            const respData = resp.data.data
-                            const { img } = respData
-                            const message = resp.data.message || '您的源文件已成功生成，请直接联系客服领取'
-                            resolve(true)
-                            // 判断img是否存在，如果存在则显示二维码
-                            if (img) {
-                              qrCodeUrl.value = img
-                              isShowQrCode.value = true
-                            } else {
-                              // 不存在则显示提示信息
-                              Dialog.confirm({
-                                title: '小Ku提示',
-                                message,
+                        .post('/downsvg', {
+                          mater_id: currentId,
+                          sn: localStorage.getItem('sn'),
+                          mobile: info.value.phone,
+                          email: info.value.email,
+                          base64: fstrImage,
+                          svg: svg,
+                        })
+                        .then(resp => {
+                          console.log(resp);
+                          const respData = resp.data.data
+                          const { img } = respData
+                          const message = resp.data.message || '您的源文件已成功生成，请直接联系客服领取'
+                          resolve(true)
+                          // 判断img是否存在，如果存在则显示二维码
+                          if (img) {
+                            qrCodeUrl.value = img
+                            isShowQrCode.value = true
+                          } else {
+                            // 不存在则显示提示信息
+                            Dialog.confirm({
+                              title: '小Ku提示',
+                              message,
+                            })
+                              .then(() => {
+                                console.log('confirm2')
                               })
-                                  .then(() => {
-                                    console.log('confirm2')
-                                  })
-                                  .catch(() => {
-                                    console.log('cancel2')
-                                  })
-                            }
-                          })
-                          .catch(e => {
-                            console.log(e)
-                            resolve(false)
-                          })
+                              .catch(() => {
+                                console.log('cancel2')
+                              })
+                          }
+                        })
+                        .catch(e => {
+                          console.log(e)
+                          resolve(false)
+                        })
                     }
 
-                    const v=  Canvg.fromString(ctx, svg)
+                    const v = Canvg.fromString(ctx, svg)
                     v.render().then(() => {
                       fstrImage = canvas.toDataURL('image/png')
                       console.log("canvas rendered")
@@ -383,6 +362,7 @@ export default defineComponent({
 .download-container {
   background: #eee;
   min-height: 100vh;
+
   .content {
     margin-top: 2rem;
     display: flex;
@@ -391,59 +371,132 @@ export default defineComponent({
     width: calc(100vw - 2rem);
     margin-left: 1rem;
     border-radius: 5px;
+
     .logo-box {
       height: 100%;
+
       svg {
         width: 100%;
         height: 100%;
       }
     }
   }
+
   .buttonBox {
     padding: 1rem 1rem;
+
     .van-button {
       border-radius: 5px;
       height: 40px;
     }
   }
+
   .infoDialog {
     p {
       font-weight: 350;
       font-size: 13px;
       padding: 1rem 0.5rem;
     }
+
+    :deep(.van-dialog__content) {
+      padding: 0 1rem !important;
+    }
+
+    .infoTitleBox {
+      background: url('https://logo.youluzefz.cn/Public/logofiles/btkuang@2x.png') no-repeat;
+      aspect-ratio: 482/108;
+      background-size: 100% 100%;
+      display: flex;
+      justify-content: center;
+      color: #fff;
+      font-size: 26px;
+      padding-top: 1rem;
+      box-sizing: border-box;
+      margin-top: -4px;
+    }
+
+    .infoContentBox {
+      background: url('https://logo.youluzefz.cn/Public/logofiles/jgbj@2x.png') no-repeat;
+      aspect-ratio: 419/262;
+      background-size: 100% 100%;
+      position: relative;
+
+      .infoContent1 {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        top: 28px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        .infoContentPrice {
+          font-size: 42px;
+          color: #ff0000;
+        }
+
+        .infoContentOriginalPrice {
+          text-decoration: line-through;
+          font-size: 20px;
+          color: #ff0000;
+          margin-top: -6px;
+        }
+
+        .infoContentDesc {
+          font-size: 16px;
+          color: #333;
+          margin-top: 8px;
+        }
+      }
+
+      .infoContent2 {
+        position: absolute;
+        bottom: 6vw;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #ff0000;
+        text-align: center;
+      }
+    }
   }
+
   .wxDialog {
     .image {
       width: 100%;
       height: 13rem;
       background: pink;
+
       img {
         height: 100%;
         width: 100%;
       }
     }
+
     .text {
       display: flex;
       flex-direction: column;
       text-align: center;
       padding: 1rem;
+
       h4 {
         letter-spacing: 2px;
         font-size: 16px;
         margin: 0 0 0.5rem;
       }
+
       div {
         font-size: 14px;
         color: rgba(0, 0, 0, 0.719);
       }
     }
   }
+
   .qrDialog {
     .image {
       width: 100%;
       height: auto;
       border-radius: var(--van-dialog-border-radius);
+
       img {
         height: 100%;
         width: 100%;
@@ -451,22 +504,27 @@ export default defineComponent({
       }
     }
   }
+
   .imageBox {
     position: relative;
     height: 200px;
+
     img {
       height: 200px;
       width: 100vw;
     }
+
     .textBox {
       position: absolute;
       top: 2rem;
       left: 1rem;
+
       h2 {
         margin: 0;
         color: #ffffff;
       }
     }
+
     button {
       position: absolute;
       bottom: 1.5rem;
@@ -480,20 +538,25 @@ export default defineComponent({
       font-size: 14px;
     }
   }
+
   .qaBox {
     background: #ffffff;
     padding: 1rem;
+
     h5 {
       margin: 0;
     }
+
     p {
       margin: 0.8rem 0;
       font-weight: 350;
       color: #333;
     }
+
     .qustion {
       font-size: 14px;
     }
+
     .anwser {
       font-size: 10px;
     }

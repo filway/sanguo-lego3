@@ -26,7 +26,7 @@ export const allFamily: Required<familyExts> = {
   douyuf: '.otf',
   hwks: '.TTF',
   cn_regular: '.ttf',
-  semibold1217: '.ttf'
+  semibold1217: '.ttf',
 }
 
 export const randomFamily = ['hkht', 'douyuf']
@@ -86,8 +86,8 @@ export const englishFontFamilyArr = [
   },
 ]
 
-export const randomI1 = [135, 288, 263]
-export const randomI2 = [175.39, 120, 144]
+export const randomI1 = [104, 288, 263]
+export const randomI2 = [173.39, 100, 144]
 export const randomIx = [250, 190, 190]
 export const randomIy = [210, 285, 200]
 export const randomNameFontSize = 75
@@ -117,7 +117,7 @@ layoutProps[0] = {
 }
 layoutProps[1] = {
   randomI1: [220, 288, 263],
-  randomI2: [175.39, 120, 144],
+  randomI2: [161.39, 100, 144],
   randomIx: [230, 190, 190],
   randomIy: [210, 285, 200],
   randomNameFontSize: 75,
@@ -125,7 +125,7 @@ layoutProps[1] = {
 }
 layoutProps[2] = {
   randomI1: [185, 288, 263],
-  randomI2: [175.39, 120, 144],
+  randomI2: [161.39, 100, 144],
   randomIx: [230, 190, 190],
   randomIy: [210, 285, 200],
   randomNameFontSize: 70,
@@ -133,7 +133,7 @@ layoutProps[2] = {
 }
 layoutProps[3] = {
   randomI1: [180, 288, 263],
-  randomI2: [175.39, 120, 144],
+  randomI2: [161.39, 100, 144],
   randomIx: [260, 190, 190],
   randomIy: [210, 285, 200],
   randomNameFontSize: 75,
@@ -141,7 +141,7 @@ layoutProps[3] = {
 }
 layoutProps[5] = {
   randomI1: [115, 288, 263],
-  randomI2: [175.39, 120, 144],
+  randomI2: [161.39, 100, 144],
   randomIx: [255, 190, 190],
   randomIy: [205, 270, 200],
   randomNameFontSize: 70,
@@ -149,7 +149,7 @@ layoutProps[5] = {
 }
 layoutProps[6] = {
   randomI1: [85, 288, 263],
-  randomI2: [175.39, 120, 144],
+  randomI2: [161.39, 100, 144],
   randomIx: [250, 190, 190],
   randomIy: [205, 270, 200],
   randomNameFontSize: 65,
@@ -157,7 +157,7 @@ layoutProps[6] = {
 }
 layoutProps[7] = {
   randomI1: [70, 288, 263],
-  randomI2: [175.39, 120, 144],
+  randomI2: [161.39, 100, 144],
   randomIx: [245, 190, 190],
   randomIy: [195, 255, 200],
   randomNameFontSize: 58,
@@ -165,7 +165,7 @@ layoutProps[7] = {
 }
 layoutProps[8] = {
   randomI1: [32, 288, 263],
-  randomI2: [175.39, 120, 144],
+  randomI2: [161.39, 100, 144],
   randomIx: [245, 190, 190],
   randomIy: [195, 265, 200],
   randomNameFontSize: 58,
@@ -173,7 +173,7 @@ layoutProps[8] = {
 }
 layoutProps[9] = {
   randomI1: [30, 288, 263],
-  randomI2: [175.39, 120, 144],
+  randomI2: [161.39, 100, 144],
   randomIx: [245, 190, 190],
   randomIy: [190, 265, 200],
   randomNameFontSize: 54,
@@ -181,7 +181,7 @@ layoutProps[9] = {
 }
 layoutProps[10] = {
   randomI1: [30, 288, 263],
-  randomI2: [175.39, 120, 144],
+  randomI2: [161.39, 100, 144],
   randomIx: [245, 190, 190],
   randomIy: [195, 255, 200],
   randomNameFontSize: 45,
@@ -189,7 +189,7 @@ layoutProps[10] = {
 }
 layoutProps[11] = {
   randomI1: [25, 288, 263],
-  randomI2: [175.39, 120, 144],
+  randomI2: [161.39, 100, 144],
   randomIx: [245, 190, 190],
   randomIy: [185, 255, 200],
   randomNameFontSize: 42,
@@ -197,7 +197,7 @@ layoutProps[11] = {
 }
 layoutProps[12] = {
   randomI1: [30, 288, 263],
-  randomI2: [175.39, 120, 144],
+  randomI2: [161.39, 100, 144],
   randomIx: [245, 190, 190],
   randomIy: [185, 255, 200],
   randomNameFontSize: 37,
@@ -205,7 +205,7 @@ layoutProps[12] = {
 }
 layoutProps[13] = {
   randomI1: [35, 288, 263],
-  randomI2: [175.39, 120, 144],
+  randomI2: [161.39, 100, 144],
   randomIx: [245, 190, 190],
   randomIy: [185, 255, 200],
   randomNameFontSize: 35,
@@ -213,7 +213,7 @@ layoutProps[13] = {
 }
 layoutProps[14] = {
   randomI1: [30, 288, 263],
-  randomI2: [175.39, 120, 144],
+  randomI2: [161.39, 100, 144],
   randomIx: [245, 190, 190],
   randomIy: [185, 255, 200],
   randomNameFontSize: 34,
@@ -221,7 +221,7 @@ layoutProps[14] = {
 }
 layoutProps[15] = {
   randomI1: [30, 288, 263],
-  randomI2: [175.39, 120, 144],
+  randomI2: [161.39, 100, 144],
   randomIx: [245, 190, 190],
   randomIy: [185, 255, 200],
   randomNameFontSize: 32,

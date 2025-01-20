@@ -61,6 +61,10 @@
         </div>
 
 
+        <div :class="`page-bg page-bg-06 page-bg-img page-insert-${key}`" :style="`background-image: url(` +
+          require(`../assets/img/cj2/${bgImgIndexArr[key]}/8.jpg`) +
+          `);height: 80vw`
+          "></div>
       </div>
     </div>
 
