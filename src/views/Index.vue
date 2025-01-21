@@ -26,9 +26,9 @@
       </div>
       <div class="page-screen" v-for="(logo, key) in logoList" :key="key" v-show="currentPage === key">
         <!-- 新的效果图构造 -->
-        <div class="svg-wrapper" :id="`svgContainer-${key}-${item.id}`"
-          :style="`background-color: ${logo.bg_color}; aspect-ratio: ${item.aspectRatio}`"
-          v-for="(item) in imgNameArrNew" :key="item.id">
+        <div class="svg-wrapper" :id="`svgContainer-${key}-${item.id}`" :style="item.bgToMainColor ? `background-color:
+          ${logo.main_color}; aspect-ratio: ${item.aspectRatio}` : `background-color: ${logo.bg_color}; aspect-ratio:
+          ${item.aspectRatio}`" v-for="(item) in imgNameArrNew" :key="item.id">
           <svg :class="`logoSvg logoSvg${key}-1`" xmlns="http://www.w3.org/2000/svg" :viewBox="item.viewBox">
             <defs>
               <filter :id="`colorize1-${key}`">
@@ -54,7 +54,7 @@
                 height="100%" preserveAspectRatio="xMidYMid meet" />
 
               <!-- svg layer -->
-              <g v-if="layer.type === 'svg'" class="insert-g" v-html="item.svgData[layer.svgIndex]"
+              <g v-if="layer.type === 'svg'" class="insert-g"
                 :transform="key % 2 === 0 ? item.svgData[layer.svgIndex].gTransform0 : item.svgData[layer.svgIndex].gTransform1" />
             </template>
           </svg>
@@ -127,6 +127,8 @@ export default defineComponent({
     PreviewDialog,
   },
   setup() {
+
+
     const showPreview = ref(false)
     const isLoading = computed(() => store.getters.isLoading)
     const route = useRoute()
@@ -143,9 +145,9 @@ export default defineComponent({
     /* 免责声明相关 start */
     const free_statement = computed(() => store.state.templates.free_statement)
     const isShowFreeStatement = ref(false)
-    // 判断如果有免责声明，就启动一个10s的倒计时, 倒计时结束之后才能点击确定
+    // 判断如果有免责声明，就启动一个3s的倒计时, 倒计时结束之后才能点击确定
     const confirmTextColor = ref('#ccc')
-    const count = ref(10)
+    const count = ref(3)
     const confirmText = computed(() => count.value === 0 ? '我已知晓' : `我已知晓(${count.value}s)`)
     /* 免责声明相关 end */
 

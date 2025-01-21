@@ -54,6 +54,39 @@ export const svgToBase64 = (svg: string): string => {
   return ImgBase64
 }
 
+// 修改SVG颜色
+export const changeSvgColor = (base64Svg: string, color: string): string => {
+  // 1. 解码Base64为SVG字符串
+  const svgContent = atob(base64Svg.split(',')[1])
+
+  // 通过getColor吸取所有颜色，然后通过正则匹配替换
+  const colors = getColor(svgContent)
+  colors.forEach((c) => {
+    console.log(c)
+    const colorPattern = new RegExp(c, 'g')
+    svgContent.replace(colorPattern, color)
+  })
+
+  // 2. 创建DOM元素来操作SVG
+  const parser = new DOMParser()
+  const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml')
+  const svgRoot = svgDoc.documentElement
+
+  // 3. 找到所有的填充（fill）和描边（stroke）属性
+  const elements = svgRoot.querySelectorAll('[fill], [stroke]')
+  elements.forEach((element) => {
+    // 修改填充色和描边色
+    element.setAttribute('fill', color)
+    element.setAttribute('stroke', color)
+  })
+
+  // 4. 将修改后的SVG转回字符串
+  const modifiedSvg = new XMLSerializer().serializeToString(svgRoot)
+
+  // 5. 再次将SVG字符串转换为Base64
+  return svgToBase64(modifiedSvg)
+}
+
 //这儿使用base64图片也是可以合成的，但用get_file_content返回的svg demo无法合成，使用在线的svg地址也无法合成
 /*
 export const draw = (
@@ -404,6 +437,16 @@ export const getSvgHtmlNew = (logoList: any[]): any[] => {
       $(`.svg-logo${i} svg`).attr('width', '110')
       $(`.svg-logo${i} svg`).attr('height', '110')
 
+      // $(`.svg-logo${i} image`)的xlink:href
+      const base64Svg = $(`.svg-logo${i} image`).attr('xlink:href') as string
+
+      // 通过getColor吸取所有颜色，然后通过正则匹配替换
+      let itemSvg = logoList[i].svg
+      const colors = getColor(itemSvg)
+      let oldImageXlinkHref = $(`.svg-logo${i} image`).attr('xlink:href')
+
+      // $(`.svg-logo${i}`).replaceWith(newXml)
+
       const parser = new DOMParser()
       let doc: any = null
 
@@ -414,18 +457,35 @@ export const getSvgHtmlNew = (logoList: any[]): any[] => {
         const fontColorType = item.fontColorType
         if (fontColorType === 1) {
           // 去接口返回的main_color, 先设置.svg-name0和.svg-slogan0的fill
-          $(`.svg-name${i}`).attr('fill', logoList[i].main_color)
-          $(`.svg-slogan${i}`).attr('fill', logoList[i].main_color)
-        } else {
+          $(`.svg-name${i}`).attr('fill', '#000000')
+          $(`.svg-slogan${i}`).attr('fill', '#000000')
+        } else if (fontColorType === 2) {
           // 固定取值黑色
           const customColor =
-            logoList[i].main_color === '#000000' ? '#FFFFFF' : '#000000'
+            logoList[i].main_color === '#FFFFFF' ? '#000000' : '#FFFFFF'
+          $(`.svg-name${i}`).attr('fill', customColor)
+          $(`.svg-slogan${i}`).attr('fill', customColor)
+          colors.forEach((c) => {
+            const colorPattern = new RegExp(c, 'g')
+            itemSvg = itemSvg.replace(colorPattern, customColor)
+          })
+          const newBase64Svg = svgToBase64(itemSvg)
+          $(`.svg-logo${i} image`).attr('xlink:href', newBase64Svg)
+        } else if (fontColorType === 3) {
+          // 位于bg上面的
+          const customColor =
+            logoList[i].bg_color === '#000000' ? '#FFFFFF' : '#000000'
           $(`.svg-name${i}`).attr('fill', customColor)
           $(`.svg-slogan${i}`).attr('fill', customColor)
         }
         doc = parser.parseFromString($.html(), 'text/xml')
 
-        return doc.getElementsByClassName(`svg${i}`)[0]
+        const temp = doc.getElementsByClassName(`svg${i}`)[0]
+
+        // 还原
+        $(`.svg-logo${i} image`).attr('xlink:href', oldImageXlinkHref)
+
+        return temp
       })
 
       htmlArr[i][imgIndex] = {
