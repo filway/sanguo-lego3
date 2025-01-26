@@ -221,8 +221,10 @@ export const imgNameArrNew: any[] = [
     ],
     svgData: [
       {
-        gTransform0: 'matrix(1, 0.08, 0, 1, 77, 26) scale(0.2, 0.2) rotate(45)',
-        gTransform1: 'matrix(1, 0.08, 0, 1, 77, 26) scale(0.2, 0.2) rotate(45)',
+        gTransform0:
+          'matrix(1, 0, 0, 1, 77, 29.5) scale(0.2) rotate(42) skewX(-15)',
+        gTransform1:
+          'matrix(1, 0, 0, 1, 77, 29.5) scale(0.2) rotate(42) skewX(-15)',
         fontColorType: 1,
       },
     ],

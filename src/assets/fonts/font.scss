@@ -1,24 +1,80 @@
 @use "sass:list";
 @use "sass:map";
 
-$fontUrl: "https://logosvg.oss-cn-chengdu.aliyuncs.com/fonts/";
+$fontUrl: 'https://logosvg.oss-cn-chengdu.aliyuncs.com/fonts/';
 $allFonts: (
-  (family: 'hyfx', ext: '.TTF'),
-  (family: 'hyhz', ext: '.TTF'),
-  (family: 'rzgf', ext: '.OTF'),
-  (family: 'zzgf', ext: '.TTF'),
-  (family: 'zktzbqxs', ext: '.TTF'),
-  (family: 'career', ext: '.ttf'),
-  (family: 'clubtype', ext: '.ttf'),
-  (family: 'crimson', ext: '.ttf'),
-  (family: 'frizon', ext: '.ttf'),
-  (family: 'intreb', ext: '.ttf'),
-  (family: 'magiera', ext: '.ttf'),
-  (family: 'playlist', ext: '.otf'),
-  (family: 'hkht', ext: '.ttf'),
-  (family: 'kls', ext: ".ttf"),
-  (family: 'douyuf', ext: ".otf"),
-  (family: 'hwks', ext: ".TTF"),
+  (
+    family: 'hyfx',
+    ext: '.TTF',
+  ),
+  (
+    family: 'hyhz',
+    ext: '.TTF',
+  ),
+  (
+    family: 'rzgf',
+    ext: '.OTF',
+  ),
+  (
+    family: 'zzgf',
+    ext: '.TTF',
+  ),
+  (
+    family: 'zktzbqxs',
+    ext: '.TTF',
+  ),
+  (
+    family: 'career',
+    ext: '.ttf',
+  ),
+  (
+    family: 'clubtype',
+    ext: '.ttf',
+  ),
+  (
+    family: 'crimson',
+    ext: '.ttf',
+  ),
+  (
+    family: 'frizon',
+    ext: '.ttf',
+  ),
+  (
+    family: 'intreb',
+    ext: '.ttf',
+  ),
+  (
+    family: 'magiera',
+    ext: '.ttf',
+  ),
+  (
+    family: 'playlist',
+    ext: '.otf',
+  ),
+  (
+    family: 'hkht',
+    ext: '.ttf',
+  ),
+  (
+    family: 'kls',
+    ext: '.ttf',
+  ),
+  (
+    family: 'douyuf',
+    ext: '.otf',
+  ),
+  (
+    family: 'hwks',
+    ext: '.TTF',
+  ),
+  (
+    family: 'cn_regular',
+    ext: '.ttf',
+  ),
+  (
+    family: 'semibold1217',
+    ext: '.ttf',
+  )
 );
 @mixin nm() {
   font-weight: normal;
@@ -27,7 +83,7 @@ $allFonts: (
 
 @for $i from 1 through list.length($allFonts) {
   $item: list.nth($allFonts, $i);
-  $ext: map.get($item, ext );
+  $ext: map.get($item, ext);
   $family: map.get($item, family);
 
   @font-face {
@@ -37,4 +93,3 @@ $allFonts: (
     font-display: swap;
   }
 }
-

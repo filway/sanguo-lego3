@@ -53,6 +53,14 @@ export const fontFamilyArr = [
     text: '华文隶书',
     value: 'hwks',
   },
+  {
+    text: '思源宋体',
+    value: 'semibold1217',
+  },
+  {
+    text: '资源圆体',
+    value: 'cn_regular',
+  },
 ]
 
 export const englishFontFamilyArr = [
