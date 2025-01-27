@@ -26,7 +26,7 @@
       </div>
       <div class="page-screen" v-for="(logo, key) in logoList" :key="key" v-show="currentPage === key">
         <!-- 新的效果图构造 -->
-        <div class="svg-wrapper" :id="`svgContainer-${key}-${item.id}`" :style="item.bgToMainColor ? `background-color:
+        <div class="svg-wrapper" :id="`svgContainer-${key}-${item.id}`" :style="(item.bgToMainColor || (item.id === '419186' && logo.main_color !== '#000000')) ? `background-color:
           ${logo.main_color}; aspect-ratio: ${item.aspectRatio}` : `background-color: ${logo.bg_color}; aspect-ratio:
           ${item.aspectRatio}`" v-for="(item) in imgNameArrNew" :key="item.id">
           <svg :class="`logoSvg logoSvg${key}-1`" xmlns="http://www.w3.org/2000/svg" :viewBox="item.viewBox">
