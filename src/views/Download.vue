@@ -50,7 +50,7 @@
       </div>
     </div>
     <van-dialog v-model:show="isShowInfoInput" class="infoDialog" show-cancel-button width="95%" :title="''"
-      :before-close="onCloseInfoDialog" @open="openInfoDialog">
+      :before-close="onCloseInfoDialog" @open="openInfoDialog" style="max-width: 360px;">
       <div class="infoTitleBox">
         支付获取精美LOGO
       </div>
@@ -431,31 +431,49 @@ export default defineComponent({
         transform: translateX(-50%);
 
         .infoContentPrice {
-          font-size: 42px;
+          font-size: 40px;
           color: #ff0000;
+
+          @media screen and (max-width: 320px) {
+            font-size: 36px;
+          }
         }
 
         .infoContentOriginalPrice {
           text-decoration: line-through;
-          font-size: 20px;
+          font-size: 18px;
           color: #ff0000;
           margin-top: -6px;
+
+          @media screen and (max-width: 320px) {
+            font-size: 16px;
+          }
         }
 
         .infoContentDesc {
-          font-size: 16px;
+          font-size: 14px;
           color: #333;
           margin-top: 8px;
+
+          @media screen and (max-width: 320px) {
+            margin-top: 6px;
+            font-size: 12px;
+          }
         }
       }
 
       .infoContent2 {
         position: absolute;
-        bottom: 6vw;
+        bottom: 22px;
         left: 50%;
         transform: translateX(-50%);
         color: #ff0000;
         text-align: center;
+        font-size: 14px;
+
+        @media screen and (max-width: 320px) {
+          font-size: 12px;
+        }
       }
     }
   }

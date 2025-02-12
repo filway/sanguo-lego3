@@ -434,7 +434,7 @@ export default defineComponent({
     }
 
     color: #fff;
-    background: #0201fd;
+    background: #7ecacc;
   }
 
   min-height: 100vh;

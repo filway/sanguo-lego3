@@ -275,21 +275,6 @@ export const imgNameArrNew: any[] = [
     ],
   },
   {
-    id: '403021',
-    name: '家庭办公室桌面',
-    aspectRatio: '200/133',
-    viewBox: '0 0 200 133',
-    layers: [{ type: 'bg' }, { type: 'svg', svgIndex: 0 }],
-    bgToMainColor: true,
-    svgData: [
-      {
-        gTransform0: 'matrix(1, 0, 0, 1, 66, 44) scale(0.35)',
-        gTransform1: 'matrix(1, 0, 0, 1, 66, 44) scale(0.35)',
-        fontColorType: 2,
-      },
-    ],
-  },
-  {
     id: '395559',
     name: '宠物猫狗牵引绳袋子',
     aspectRatio: '100/66.7',
@@ -303,6 +288,24 @@ export const imgNameArrNew: any[] = [
       {
         gTransform0: 'matrix(1, 0, 0, 1, 9, 27) scale(0.4) rotate(348)',
         gTransform1: 'matrix(1, 0, 0, 1, 11, 26) scale(0.4) rotate(346)',
+        fontColorType: 2,
+      },
+    ],
+  },
+  {
+    id: '417422',
+    name: '圣诞节壁画',
+    aspectRatio: '100/66',
+    viewBox: '0 0 100 66',
+    layers: [
+      { type: 'svg', svgIndex: 0 }, // Use first svgData
+      { type: 'bg' },
+    ],
+    bgToMainColor: true,
+    svgData: [
+      {
+        gTransform0: 'matrix(1, 0, 0, 1, 9, 13) scale(0.5)',
+        gTransform1: 'matrix(1, 0, 0, 1, 12, 8) scale(0.5)',
         fontColorType: 2,
       },
     ],
@@ -327,19 +330,16 @@ export const imgNameArrNew: any[] = [
     ],
   },
   {
-    id: '417422',
-    name: '圣诞节壁画',
-    aspectRatio: '100/66',
-    viewBox: '0 0 100 66',
-    layers: [
-      { type: 'svg', svgIndex: 0 }, // Use first svgData
-      { type: 'bg' },
-    ],
+    id: '403021',
+    name: '家庭办公室桌面',
+    aspectRatio: '200/133',
+    viewBox: '0 0 200 133',
+    layers: [{ type: 'bg' }, { type: 'svg', svgIndex: 0 }],
     bgToMainColor: true,
     svgData: [
       {
-        gTransform0: 'matrix(1, 0, 0, 1, 9, 13) scale(0.5)',
-        gTransform1: 'matrix(1, 0, 0, 1, 12, 8) scale(0.5)',
+        gTransform0: 'matrix(1, 0, 0, 1, 66, 44) scale(0.35)',
+        gTransform1: 'matrix(1, 0, 0, 1, 66, 44) scale(0.35)',
         fontColorType: 2,
       },
     ],
