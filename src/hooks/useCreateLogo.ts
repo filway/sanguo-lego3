@@ -50,11 +50,11 @@ const useCreateLogo = async (
       randonI = item.randomIndex
       // 横版字体取font_l，竖版字体取font_v
       if (randonI === 0) {
-        titleFamily = item.font_l
-        subTitleFamily = item.font_l
+        titleFamily = item.font_l + '_small'
+        subTitleFamily = item.font_l + '_small'
       } else if (randonI === 1) {
-        titleFamily = item.font_v
-        subTitleFamily = item.font_v
+        titleFamily = item.font_v + '_small'
+        subTitleFamily = item.font_v + '_small'
       } else {
         titleFamily = randomFamily[randonI]
         subTitleFamily = randomFamily[randonI]
@@ -73,6 +73,16 @@ const useCreateLogo = async (
     } else {
       //直接取对应属性
       randonI = item.randomIndex || 0
+      // 去掉item.randomTitleFamily和item.randomSubTitleFamily的_small后缀
+      if (item.randomTitleFamily) {
+        item.randomTitleFamily = item.randomTitleFamily.replace('_small', '')
+      }
+      if (item.randomSubTitleFamily) {
+        item.randomSubTitleFamily = item.randomSubTitleFamily.replace(
+          '_small',
+          ''
+        )
+      }
       titleFamily = item.randomTitleFamily || ''
       subTitleFamily = item.randomSubTitleFamily || ''
     }

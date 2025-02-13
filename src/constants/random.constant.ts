@@ -148,7 +148,7 @@ layoutProps[3] = {
   randomNameEnFontSize: 25,
 }
 layoutProps[5] = {
-  randomI1: [115, 288, 263],
+  randomI1: [100, 288, 263],
   randomI2: [161.39, 100, 144],
   randomIx: [255, 190, 190],
   randomIy: [205, 270, 200],

@@ -2,14 +2,8 @@
   <div class="editor-container">
     <header-nav :title="'logo在线编辑'" @back="$router.back(-1)" />
 
-    <preview-dialog
-      @close="closePreviewDialog"
-      :show="showPreview"
-      :previewData="previewData"
-      :parentView="'editor'"
-      :bgColor="currentBackColor"
-      :logoId="marteralId"
-    ></preview-dialog>
+    <preview-dialog @close="closePreviewDialog" :show="showPreview" :previewData="previewData" :parentView="'editor'"
+      :bgColor="currentBackColor" :logoId="marteralId"></preview-dialog>
     <van-row>
       <van-col span="24" class="editorTips"> 编辑好后点击下载即可 </van-col>
     </van-row>
@@ -25,12 +19,10 @@
         </div>
       </van-col>
       <van-col span="6" class="icon-right">
-        <router-link
-          :to="{
-            name: 'download',
-            params: { id: marteralId, bgColor: currentBackColor },
-          }"
-        >
+        <router-link :to="{
+          name: 'download',
+          params: { id: marteralId, bgColor: currentBackColor },
+        }">
           <div class="circleBox">
             <van-icon style="color: #000" name="down" size="1.2rem" />
           </div>
@@ -47,60 +39,28 @@
             color="#1989fa"
           /> -->
           <div v-show="createLogoLoading" class="logoLoading"></div>
-          <component
-            ref="svgRef"
-            :is="'svg'"
-            baseProfile="full"
-            version="1.1"
-            :class="'svg' + key"
-            viewBox="0 0 686 448"
-            xmlns="http://www.w3.org/2000/svg"
-          />
+          <component ref="svgRef" :is="'svg'" baseProfile="full" version="1.1" :class="'svg' + key"
+            viewBox="0 0 686 448" xmlns="http://www.w3.org/2000/svg" />
         </div>
       </van-col>
     </van-row>
     <van-tabs @click="onClickTab" background="#f8f8f8" class="tabsWrapper" v-model:active="active">
       <van-tab title="title1" class="tab2">
         <template #title>
-          <van-icon class="iconfont" class-prefix="icon" name="tubiao" size="1.2rem"
-        /></template>
+          <van-icon class="iconfont" class-prefix="icon" name="tubiao" size="1.2rem" /></template>
         <div class="titleBox">
           <span class="tabContentTitle activeTitle">图标</span>
         </div>
         <van-row class="tab1Box">
           <van-col class="imageBox" span="9">
-            <van-image
-              height="1.8rem"
-              fit="contain"
-              @click="selectPostionImage(0)"
-              class="leftImage"
-              v-show="imageActive === 0"
-              :src="require('../assets/img/left_active.png')"
-            />
-            <van-image
-              height="1.8rem"
-              fit="contain"
-              class="leftImage"
-              @click="selectPostionImage(0)"
-              v-show="imageActive !== 0"
-              :src="require('../assets/img/left.png')"
-            />
-            <van-image
-              height="1.8rem"
-              fit="contain"
-              class="centerImage"
-              v-show="imageActive === 1"
-              @click="selectPostionImage(1)"
-              :src="require('../assets/img/vertical_active.jpg')"
-            />
-            <van-image
-              height="1.8rem"
-              fit="contain"
-              class="centerImage"
-              v-show="imageActive !== 1"
-              @click="selectPostionImage(1)"
-              :src="require('../assets/img/vertical.png')"
-            />
+            <van-image height="1.8rem" fit="contain" @click="selectPostionImage(0)" class="leftImage"
+              v-show="imageActive === 0" :src="require('../assets/img/left_active.png')" />
+            <van-image height="1.8rem" fit="contain" class="leftImage" @click="selectPostionImage(0)"
+              v-show="imageActive !== 0" :src="require('../assets/img/left.png')" />
+            <van-image height="1.8rem" fit="contain" class="centerImage" v-show="imageActive === 1"
+              @click="selectPostionImage(1)" :src="require('../assets/img/vertical_active.jpg')" />
+            <van-image height="1.8rem" fit="contain" class="centerImage" v-show="imageActive !== 1"
+              @click="selectPostionImage(1)" :src="require('../assets/img/vertical.png')" />
             <!-- <van-image
               height="1.8rem"
               fit="contain"
@@ -118,39 +78,26 @@
               :src="require('../assets/img/center.png')"
             /> -->
           </van-col>
-          <van-col span="3"><div @click="resetSvg" class="smallImg"></div></van-col>
+          <van-col span="3">
+            <div @click="resetSvg" class="smallImg"></div>
+          </van-col>
           <van-col span="3">
             <van-popover v-model:show="showImgPopover" placement="top">
               <div class="sliderBox">
                 <div>
                   <h5 style="margin-top: 0">左右: {{ lrImgValue }}</h5>
-                  <van-slider
-                    v-model="lrImgValue"
-                    :min="-800"
-                    :max="800"
-                    :button-size="18"
-                    @update:model-value="onSliderChange($event, 1)"
-                  />
+                  <van-slider v-model="lrImgValue" :min="-800" :max="800" :button-size="18"
+                    @update:model-value="onSliderChange($event, 1)" />
                 </div>
                 <div>
                   <h5>上下: {{ udImgValue }}</h5>
-                  <van-slider
-                    v-model="udImgValue"
-                    :min="-800"
-                    :max="800"
-                    :button-size="18"
-                    @update:model-value="onSliderChange($event, 2)"
-                  />
+                  <van-slider v-model="udImgValue" :min="-800" :max="800" :button-size="18"
+                    @update:model-value="onSliderChange($event, 2)" />
                 </div>
                 <div>
                   <h5>大小: {{ lsImgValue }}</h5>
-                  <van-slider
-                    v-model="lsImgValue"
-                    :min="10"
-                    :max="initLsValue * 2"
-                    :button-size="18"
-                    @update:model-value="onSliderChange($event, 3)"
-                  />
+                  <van-slider v-model="lsImgValue" :min="10" :max="initLsValue * 2" :button-size="18"
+                    @update:model-value="onSliderChange($event, 3)" />
                 </div>
               </div>
               <template #reference>
@@ -164,60 +111,33 @@
       </van-tab>
       <van-tab title="title2" class="tab2">
         <template #title>
-          <van-icon class="iconfont" class-prefix="icon" name="hengxiangwenben" size="1.2rem"
-        /></template>
+          <van-icon class="iconfont" class-prefix="icon" name="hengxiangwenben" size="1.2rem" /></template>
         <div class="titleBox">
-          <span
-            :class="[
-              tab2ContentTitleActive == 0
-                ? 'tabContentTitle activeTitle'
-                : 'tabContentTitle noActiveTitle',
-            ]"
-            @click="toggleTab2Title(0)"
-            >名称</span
-          >
-          <van-dialog
-            v-model:show="isShowNameInput"
-            show-cancel-button
-            title="请输入"
-            width="300"
-            @open="onOpenNameDialog"
-            :before-close="onCloseNameDialog"
-          >
-            <van-field
-              clearable
-              label=""
-              placeholder="请输入姓名"
-              v-model="inputName"
-              v-show="tab2ContentTitleActive === 0"
-            />
-            <van-field
-              clearable
-              label=""
-              placeholder="请输入口号"
-              v-model="inputNameEn"
-              v-show="tab2ContentTitleActive === 1"
-            />
+          <span :class="[
+            tab2ContentTitleActive == 0
+              ? 'tabContentTitle activeTitle'
+              : 'tabContentTitle noActiveTitle',
+          ]" @click="toggleTab2Title(0)">名称</span>
+          <van-dialog v-model:show="isShowNameInput" show-cancel-button title="请输入" width="300" @open="onOpenNameDialog"
+            :before-close="onCloseNameDialog">
+            <van-field clearable label="" placeholder="请输入姓名" v-model="inputName"
+              v-show="tab2ContentTitleActive === 0" />
+            <van-field clearable label="" placeholder="请输入口号" v-model="inputNameEn"
+              v-show="tab2ContentTitleActive === 1" />
           </van-dialog>
-          <span
-            :class="[
-              tab2ContentTitleActive == 1
-                ? 'tabContentTitle activeTitle'
-                : 'tabContentTitle noActiveTitle',
-            ]"
-            @click="toggleTab2Title(1)"
-            >口号</span
-          >
+          <span :class="[
+            tab2ContentTitleActive == 1
+              ? 'tabContentTitle activeTitle'
+              : 'tabContentTitle noActiveTitle',
+          ]" @click="toggleTab2Title(1)">口号</span>
         </div>
         <div class="sloganEffectBox" v-show="tab2ContentTitleActive === 1">
-          <div
-            :class="[sloganEffectItemActive == 1 ? 'sloganEffectActive1' : '']"
-            @click="toggleSloganEffectItemActive(1)"
-          ></div>
-          <div
-            :class="[sloganEffectItemActive == 2 ? 'sloganEffectActive2' : '']"
-            @click="toggleSloganEffectItemActive(2)"
-          ></div>
+          <div :class="[sloganEffectItemActive == 1 ? 'sloganEffectActive1' : '']"
+            @click="toggleSloganEffectItemActive(1)">
+          </div>
+          <div :class="[sloganEffectItemActive == 2 ? 'sloganEffectActive2' : '']"
+            @click="toggleSloganEffectItemActive(2)">
+          </div>
           <!-- <div
             :class="[sloganEffectItemActive == 3 ? 'sloganEffectActive3' : '']"
             @click="toggleSloganEffectItemActive(3)"
@@ -226,33 +146,19 @@
         <div class="settingBox">
           <span @click="isShowNameInput = true">{{
             tab2ContentTitleActive ? template.name_en : template.name
-          }}</span>
+            }}</span>
           <span>
-            <van-popover
-              :close-on-click-overlay="false"
-              :close-on-click-action="false"
-              v-model:show="showFamilyPopover"
-              placement="top-end"
-              class="familyPopover"
-            >
+            <van-popover :close-on-click-overlay="false" :close-on-click-action="false" v-model:show="showFamilyPopover"
+              placement="top-end" class="familyPopover">
               <van-tabs v-model:active="activeFont" color="#3286fe">
-                <van-tab title="字体" title-class="familyTitle"
-                  ><div
-                    v-for="(item, index) in familyOptions"
-                    :key="index"
-                    role="menuitem"
-                    class="van-popover__action"
-                    style="height: 1.6rem; width: 10rem"
-                    @click.stop="selectFontFamily(item.text, item.value)"
-                  >
-                    <div
-                      :style="{ fontFamily: item.value }"
-                      class="van-popover__action-text van-hairline--bottom"
-                    >
+                <van-tab title="字体" title-class="familyTitle">
+                  <div v-for="(item, index) in familyOptions" :key="index" role="menuitem" class="van-popover__action"
+                    style="height: 1.6rem; width: 10rem" @click.stop="selectFontFamily(item.text, item.value)">
+                    <div :style="{ fontFamily: item.value }" class="van-popover__action-text van-hairline--bottom">
                       {{ item.text }}
                     </div>
-                  </div></van-tab
-                >
+                  </div>
+                </van-tab>
                 <!-- <van-tab title="英文" title-class="familyTitle"
                   ><div
                     v-for="(item, index) in englishFamilyOptions"
@@ -311,36 +217,23 @@
       </van-tab>
       <van-tab title="title3" class="tab2" style="margin-bottom: 1rem">
         <template #title>
-          <van-icon class="iconfont" class-prefix="icon" name="yanse" size="1.2rem"
-        /></template>
+          <van-icon class="iconfont" class-prefix="icon" name="yanse" size="1.2rem" /></template>
         <div class="titleBox">
-          <span
-            :class="[
-              tab3ContentTitleActive == 0
-                ? 'tabContentTitle activeTitle'
-                : 'tabContentTitle noActiveTitle',
-            ]"
-            @click="toggleTab3Title(0)"
-            >名称</span
-          >
-          <span
-            :class="[
-              tab3ContentTitleActive == 1
-                ? 'tabContentTitle activeTitle'
-                : 'tabContentTitle noActiveTitle',
-            ]"
-            @click="toggleTab3Title(1)"
-            >口号</span
-          >
-          <span
-            :class="[
-              tab3ContentTitleActive == 3
-                ? 'tabContentTitle activeTitle'
-                : 'tabContentTitle noActiveTitle',
-            ]"
-            @click="toggleTab3Title(3)"
-            >图标</span
-          >
+          <span :class="[
+            tab3ContentTitleActive == 0
+              ? 'tabContentTitle activeTitle'
+              : 'tabContentTitle noActiveTitle',
+          ]" @click="toggleTab3Title(0)">名称</span>
+          <span :class="[
+            tab3ContentTitleActive == 1
+              ? 'tabContentTitle activeTitle'
+              : 'tabContentTitle noActiveTitle',
+          ]" @click="toggleTab3Title(1)">口号</span>
+          <span :class="[
+            tab3ContentTitleActive == 3
+              ? 'tabContentTitle activeTitle'
+              : 'tabContentTitle noActiveTitle',
+          ]" @click="toggleTab3Title(3)">图标</span>
           <!-- <span
             :class="[
               tab3ContentTitleActive == 2
@@ -352,35 +245,13 @@
           > -->
         </div>
         <div class="colorBox" v-show="tab3ContentTitleActive === 3">
-          <div
-            :class="[colorItemActive == key ? 'colorActive' : '']"
-            @click="toggleColorItem(key)"
-            v-for="(color, key) in colors"
-            :key="key"
-            :data-color="color"
-            :style="{ background: color }"
-          ></div>
+          <div :class="[colorItemActive == key ? 'colorActive' : '']" @click="toggleColorItem(key)"
+            v-for="(color, key) in colors" :key="key" :data-color="color" :style="{ background: color }"></div>
         </div>
-        <color-picker
-          v-show="tab3ContentTitleActive === 0"
-          :value="currentNameColor"
-          @change="changeNameColor"
-        />
-        <color-picker
-          v-show="tab3ContentTitleActive === 1"
-          :value="currentSloganColor"
-          @change="changeSloganColor"
-        />
-        <color-picker
-          v-show="tab3ContentTitleActive === 2"
-          :value="currentBackColor"
-          @change="changeBackColor"
-        />
-        <color-picker
-          v-show="tab3ContentTitleActive === 3"
-          :value="currentImageColor"
-          @change="changeImageColor"
-        />
+        <color-picker v-show="tab3ContentTitleActive === 0" :value="currentNameColor" @change="changeNameColor" />
+        <color-picker v-show="tab3ContentTitleActive === 1" :value="currentSloganColor" @change="changeSloganColor" />
+        <color-picker v-show="tab3ContentTitleActive === 2" :value="currentBackColor" @change="changeBackColor" />
+        <color-picker v-show="tab3ContentTitleActive === 3" :value="currentImageColor" @change="changeImageColor" />
       </van-tab>
     </van-tabs>
   </div>
@@ -872,32 +743,39 @@ export default defineComponent({
   display: flex;
   margin-bottom: 0.8rem;
   align-items: center;
+
   div {
     width: 20px;
     height: 20px;
     border-radius: 5px;
     margin: 0 2px;
   }
+
   .colorActive {
     border: 1px solid red;
   }
 }
+
 .sloganEffectBox {
   display: flex;
   margin-bottom: 0.8rem;
   align-items: center;
-  > div:first-child {
+
+  >div:first-child {
     background-image: url('../assets/img/slogan1.png');
     background-size: 100% 100%;
   }
-  > div:nth-child(2) {
+
+  >div:nth-child(2) {
     background-image: url('../assets/img/slogan2.png');
     background-size: 100% 100%;
   }
-  > div:nth-child(3) {
+
+  >div:nth-child(3) {
     background-image: url('../assets/img/slogan3.png');
     background-size: 100% 100%;
   }
+
   div {
     width: 40px;
     height: 30px;
@@ -908,22 +786,27 @@ export default defineComponent({
     align-items: center;
     justify-content: center;
   }
+
   .sloganEffectActive1 {
     background-image: url('../assets/img/slogan1_active.jpg') !important;
     background-size: 100% 100%;
   }
+
   .sloganEffectActive2 {
     background-image: url('../assets/img/slogan2_active.jpg') !important;
     background-size: 100% 100%;
   }
+
   .sloganEffectActive3 {
     background-image: url('../assets/img/slogan3_active.png') !important;
     background-size: 100% 100%;
   }
 }
+
 .lego-color-picker {
   height: 4rem;
 }
+
 .smallImg {
   background: #ffffff;
   width: 1.6rem;
@@ -934,6 +817,7 @@ export default defineComponent({
   border-radius: 3px;
   padding: 0.1rem;
 }
+
 .circleBox {
   background: #ffffff;
   width: 1.6rem;
@@ -944,65 +828,82 @@ export default defineComponent({
   border-radius: 50%;
   padding: 0.1rem;
 }
+
 .activeTitle {
   background: #3286fe;
   color: #fff;
 }
+
 .noActiveTitle {
   background: #fff;
 }
+
 .sliderBox {
   padding: 0.5rem 1rem;
+
   h5 {
     margin-bottom: 0.2rem;
   }
+
   height: 8rem;
   width: 7rem;
 }
+
 .sliderBox2 {
   padding: 1rem 1rem;
+
   h5 {
     margin-bottom: 0.2rem;
   }
+
   // height: 5rem;
   width: 8rem;
 }
+
 .familyPopover {
   .van-tabs {
     :deep(.van-tabs__content) {
       height: 100px !important;
       overflow: auto;
     }
+
     :deep(.van-tabs__wrap) {
       margin-bottom: 0.5rem;
     }
   }
 }
+
 @keyframes fade {
   0% {
     opacity: 0;
     transform: scale(0);
   }
+
   25% {
     opacity: 0.25;
     transform: scale(0.25);
   }
+
   50% {
     opacity: 0.5;
     transform: scale(0.5);
   }
+
   75% {
     opacity: 0.25;
     transform: scale(1);
   }
+
   100% {
     opacity: 0;
   }
 }
+
 .editor-container {
   background: #f8f8f8;
   min-height: 100vh;
   position: relative;
+
   .editorTips {
     text-align: center;
     background: #3286fe;
@@ -1011,15 +912,19 @@ export default defineComponent({
     font-size: 12px;
     font-weight: 350;
   }
+
   .iconsWrapper {
     padding: 2rem;
+
     .icon-left {
       text-align: right;
     }
+
     .icon-center {
       text-align: center;
     }
   }
+
   .content {
     display: flex;
     flex-direction: column;
@@ -1028,6 +933,7 @@ export default defineComponent({
     margin-left: 1rem;
     // background: url("~@/assets/img/background-transparent.png");
     border-radius: 5px;
+
     .logoLoading {
       // left: calc(50vw - 1rem - 20px);
       // top: 50%;
@@ -1039,14 +945,17 @@ export default defineComponent({
       border-radius: 100%;
       animation: fade ease-in 0.75s infinite;
     }
+
     .logo-box {
       height: 100%;
+
       svg {
         width: 100%;
         height: 100%;
       }
     }
   }
+
   .tabsWrapper {
     display: flex;
     flex-direction: column;
@@ -1055,6 +964,7 @@ export default defineComponent({
     margin-left: 2rem;
     position: absolute;
     bottom: 0.8rem;
+
     .tabContentTitle {
       border-radius: 8px;
       padding: 0.1rem 0.5rem;
@@ -1062,13 +972,16 @@ export default defineComponent({
       margin-right: 1rem;
       display: inline-flex;
     }
+
     .tab2 {
       display: flex;
       flex-direction: column;
       align-items: center;
+
       .titleBox {
         margin-bottom: 1rem;
       }
+
       .settingBox {
         margin-bottom: 0.5rem;
         display: flex;
@@ -1076,7 +989,8 @@ export default defineComponent({
         align-items: center;
         padding: 0.5rem 1rem;
         width: 100%;
-        > span:first-child {
+
+        >span:first-child {
           border: 1px solid #ccc;
           background: #fff;
           width: 32%;
@@ -1086,7 +1000,8 @@ export default defineComponent({
           text-overflow: ellipsis;
           white-space: nowrap;
         }
-        > span:nth-child(2) {
+
+        >span:nth-child(2) {
           border: 1px solid #ccc;
           background: #eee;
           flex: 1;
@@ -1094,11 +1009,13 @@ export default defineComponent({
           margin-right: 1rem;
           display: flex;
           justify-content: space-around;
+
           :deep(.van-popover__wrapper) {
             display: flex;
             justify-content: space-between;
             width: 100%;
             padding: 0.4rem 0.8rem;
+
             span {
               overflow: hidden;
               text-overflow: ellipsis;
@@ -1109,33 +1026,40 @@ export default defineComponent({
         }
       }
     }
+
     .tab1Box {
       display: flex;
       align-items: center;
       padding-bottom: 0.8rem;
       justify-content: space-around;
       border-radius: 3px;
+
       .imageBox {
         display: flex;
         align-items: center;
         box-shadow: 0 2px 12px #3232331f;
+
         .van-image {
           background: #fff;
           width: 50%;
+
           :deep(img) {
             width: 100%;
             height: 100%;
           }
         }
+
         .leftImage {
           border-right: 1px solid #d9d9d9;
           border-top-left-radius: 5px;
           border-bottom-left-radius: 5px;
         }
+
         .centerImage {
           border-right: 1px solid #d9d9d9;
         }
-        > .van-image:last-child {
+
+        >.van-image:last-child {
           border-top-right-radius: 5px;
           border-bottom-right-radius: 5px;
         }

@@ -18,6 +18,7 @@ import { SVG } from '@svgdotjs/svg.js'
 import { imgNameArr, imgNameArrNew } from './constants/preview.constant'
 import { TemplateProps } from '@/store/templates'
 import { Ref } from 'vue'
+import axios from 'axios'
 
 export const materialDownLoad = (
   src: string,
@@ -527,4 +528,48 @@ export const convertColorToMatrix = (hexColor: string): string => {
   ].join(' ')
 
   return matrix
+}
+
+// preloadFont
+export const preloadFont = async (
+  logoFont: string,
+  sloganFont: string,
+  logo: string,
+  slogan: string
+): Promise<void> => {
+  const ext = findFontExt(logoFont)
+  const ext2 = findFontExt(sloganFont)
+  const res = await axios.post('/getFontBase64', {
+    logoFont: `${logoFont}${ext}`,
+    sloganFont: `${sloganFont}${ext2}`,
+    logo: logo + slogan,
+    slogan: logo + slogan,
+  })
+
+  console.log(res)
+
+  if (res.data.data) {
+    const logoBase64 = res.data.data.logo
+    const sloganBase64 = res.data.data.slogan
+
+    //TTF FONTS: @font-face{font-family:'yourfontname'; src: url(data:application/font-ttf;charset=utf-8;base64,YOUR BASE64 STRING HERE) format('truetype');}
+
+    const logoFontUrl = `url(data:application/font-ttf;charset=utf-8;base64,${logoBase64})`
+    const sloganFontUrl = `url(data:application/font-ttf;charset=utf-8;base64,${sloganBase64})`
+
+    const style = document.createElement('style')
+    style.innerHTML = `
+      @font-face {
+        font-family: ${logoFont}_small;
+        src: ${logoFontUrl} format('truetype');
+      }
+      @font-face {
+        font-family: ${sloganFont}_small;
+        src: ${sloganFontUrl} format('truetype');
+      }
+    `
+
+    console.log('style', style)
+    document.head.appendChild(style)
+  }
 }

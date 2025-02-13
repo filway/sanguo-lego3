@@ -108,7 +108,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, provide, ref } from 'vue'
+import { computed, defineComponent, onBeforeMount, onMounted, provide, ref } from 'vue'
 import { GlobalDataProps } from '../store/index'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
@@ -116,7 +116,7 @@ import useCreateLogo from '@/hooks/useCreateLogo'
 import PreviewDialog from '@/components/PreviewDialog.vue'
 import { SVG } from '@svgdotjs/svg.js'
 import { previewPropsArr } from '../constants/preview.constant'
-import { getSvgHtml, toTop, convertColorToMatrix, getSvgHtmlNew } from '@/helper'
+import { getSvgHtml, toTop, convertColorToMatrix, getSvgHtmlNew, preloadFont } from '@/helper'
 import cheerio from 'cheerio'
 import $ from 'jquery'
 import { imgNameArrNew } from '@/constants/preview.constant'
@@ -231,6 +231,13 @@ export default defineComponent({
       })
 
 
+    // onBeforeMount(async () => {
+    //   // 提前请求后端接口拿到横版和竖版列表字体的base64, 然后引入到head标签里面的style里面
+    //   const firstItem = logoList.value[0]
+    //   await preloadFont(firstItem.font_l, firstItem.font_v, firstItem.name, firstItem.name_en);
+    // })
+
+
     onMounted(async () => {
       let { sn } = route.query
       localStorage.setItem('sn', sn as string)
@@ -238,8 +245,13 @@ export default defineComponent({
       await store.dispatch('fetchTemplates', {
         data: { sn: sn || '' },
       })
-      await useCreateLogo(logoList.value)
 
+
+      // 提前请求后端接口拿到横版和竖版列表字体的base64, 然后引入到head标签里面的style里面
+      const firstItem = logoList.value[0]
+      await preloadFont(firstItem.font_l, firstItem.font_v, firstItem.name, firstItem.name_en);
+
+      await useCreateLogo(logoList.value)
       const svgHtmlArr = getSvgHtml(logoList.value)
       const svgHtmlArrNew = getSvgHtmlNew(logoList.value)
       svgHtmlArr.forEach((item, index) => {
