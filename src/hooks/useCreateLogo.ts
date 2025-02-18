@@ -107,7 +107,7 @@ const useCreateLogo = async (
       .font({
         size: nameFontSize,
         family: titleFamily,
-        weight: 'bolder',
+        // weight: 'bolder',
       })
       .attr({
         fill: `#000000`,
@@ -121,7 +121,7 @@ const useCreateLogo = async (
       .font({
         size: nameEnFontSize,
         family: subTitleFamily,
-        weight: 'bolder',
+        // weight: 'bolder',
       })
       .attr({
         fill: '#000000',
