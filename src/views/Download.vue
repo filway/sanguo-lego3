@@ -49,12 +49,12 @@
         <p class="anwser">答：源文件需要使用专业的设计软件才可以打开，如PS、AI、CDR等</p>
       </div>
     </div>
-    <van-dialog v-model:show="isShowInfoInput" class="infoDialog" show-cancel-button width="95%" :title="''"
-      :before-close="onCloseInfoDialog" @open="openInfoDialog" style="max-width: 360px;">
-      <div class="infoTitleBox">
+    <van-dialog v-model:show="isShowInfoInput" class="infoDialog" show-cancel-button width="95%"
+      :title="isPaid ? '' : '信息填写'" :before-close="onCloseInfoDialog" @open="openInfoDialog" style="max-width: 360px;">
+      <div class="infoTitleBox" v-if="isPaid">
         支付获取精美LOGO
       </div>
-      <div class="infoContentBox">
+      <div class="infoContentBox" v-if="isPaid">
         <div class="infoContent1">
           <span class="infoContentPrice">￥68.00</span>
           <span class="infoContentOriginalPrice">原价: 199.00/次</span>
@@ -123,6 +123,7 @@ export default defineComponent({
     )
     logoList.value.push(template.value)
     const isShowInfoInput = ref(false)
+    const isPaid = ref(false)
     const info = ref<infoType>({ phone: '', email: '' })
     const alertTips = () => {
       Dialog.confirm({
@@ -353,7 +354,8 @@ export default defineComponent({
       copyWx,
       isShowQrCode,
       qrCodeUrl,
-      price_str
+      price_str,
+      isPaid
     }
   },
 })
