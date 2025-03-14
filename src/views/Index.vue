@@ -127,7 +127,8 @@ export default defineComponent({
     PreviewDialog,
   },
   setup() {
-
+    // 水印
+    const watermark = computed(() => store.state.global.watermark)
 
     const showPreview = ref(false)
     const isLoading = computed(() => store.getters.isLoading)

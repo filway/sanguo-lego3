@@ -67,7 +67,9 @@ const templates: Module<TemplatesProps, GlobalDataProps> = {
       state.tips = rawData.attr?.tips;
       state.free_statement = rawData.attr?.free_statement;
       sessionStorage.setItem("wx", rawData.attr ? rawData.attr.wx : "");
-      sessionStorage.setItem("price_str", rawData.attr ? rawData.attr.price_str : "");
+      sessionStorage.setItem("is_pay", rawData.attr ? rawData.attr.is_pay : "");
+      sessionStorage.setItem("pay_price", rawData.attr ? rawData.attr.pay_price : "");
+      store.dispatch("setWatermarkFromResponse", rawData);
     },
     translate(state, rawData: RespData<string>) {
       state.currentNameEn = rawData.data;

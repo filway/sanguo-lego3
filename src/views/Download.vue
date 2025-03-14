@@ -50,13 +50,13 @@
       </div>
     </div>
     <van-dialog v-model:show="isShowInfoInput" class="infoDialog" show-cancel-button width="95%"
-      :title="isPaid ? '' : '信息填写'" :before-close="onCloseInfoDialog" @open="openInfoDialog" style="max-width: 360px;">
-      <div class="infoTitleBox" v-if="isPaid">
+      :title="!isPaid ? '' : '信息填写'" :before-close="onCloseInfoDialog" @open="openInfoDialog" style="max-width: 360px;">
+      <div class="infoTitleBox" v-if="!isPaid">
         支付获取精美LOGO
       </div>
-      <div class="infoContentBox" v-if="isPaid">
+      <div class="infoContentBox" v-if="!isPaid">
         <div class="infoContent1">
-          <span class="infoContentPrice">￥68.00</span>
+          <span class="infoContentPrice">￥{{ payPrice }}</span>
           <span class="infoContentOriginalPrice">原价: 199.00/次</span>
           <span class="infoContentDesc">高端logo设计 助力行业发展</span>
         </div>
@@ -93,7 +93,7 @@ import useCreateLogo from '@/hooks/useCreateLogo'
 import { useStore } from 'vuex'
 import { Dialog, Toast } from 'vant'
 import axios, { AxiosResponse } from 'axios'
-import { copyToClipboard, svgToBase64, findFontExt, replaceWhenLayoutChange2 } from '@/helper'
+import { copyToClipboard, svgToBase64, findFontExt, replaceWhenLayoutChange2, toTop } from '@/helper'
 import { SVG } from '@svgdotjs/svg.js'
 import { base64Data, RespData } from '@/store/respTypes'
 import { Canvg } from "canvg"
@@ -123,7 +123,9 @@ export default defineComponent({
     )
     logoList.value.push(template.value)
     const isShowInfoInput = ref(false)
-    const isPaid = ref(false)
+    const isPay = sessionStorage.getItem('is_pay') || '0'
+    const isPaid = ref(isPay == '1')
+    const payPrice = sessionStorage.getItem('pay_price') || '68.00'
     const info = ref<infoType>({ phone: '', email: '' })
     const alertTips = () => {
       Dialog.confirm({
@@ -311,10 +313,10 @@ export default defineComponent({
     const isShowQrCode = ref(false)
     const qrCodeUrl = ref('')
     const wx = sessionStorage.getItem('wx') || ''
-    const price_str = sessionStorage.getItem('price_str') || ''
     const initKeyValueArr = [110, 110, 160]
     const initLsValue = computed(() => initKeyValueArr[template.value.randomIndex || 0])
     onMounted(async () => {
+      toTop()
       if (isSvgCode) {
         const logoBoxDom = document.getElementById('logoBox')
         if (logoBoxDom) {
@@ -354,8 +356,8 @@ export default defineComponent({
       copyWx,
       isShowQrCode,
       qrCodeUrl,
-      price_str,
-      isPaid
+      isPaid,
+      payPrice
     }
   },
 })

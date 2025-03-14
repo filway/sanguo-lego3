@@ -10,6 +10,7 @@ export interface GlobalStatus {
     status: boolean;
     message?: string;
   };
+  watermark: string;
 }
 
 const global: Module<GlobalStatus, GlobalDataProps> = {
@@ -21,6 +22,7 @@ const global: Module<GlobalStatus, GlobalDataProps> = {
     error: {
       status: false,
     },
+    watermark: '',
   },
   mutations: {
     startLoading(state, { opName }) {
@@ -44,6 +46,9 @@ const global: Module<GlobalStatus, GlobalDataProps> = {
     setpngDownloadUrl(state, url) {
       state.pngDownloadUrl = url;
     },
+    setWatermark(state, watermark) {
+      state.watermark = watermark;
+    },
   },
   getters: {
     isLoading: (state) => state.requestNumber > 0,
@@ -51,6 +56,13 @@ const global: Module<GlobalStatus, GlobalDataProps> = {
     getjpgDownloadUrl: (state) => state.jpgDownloadUrl,
     getpngDownloadUrl: (state) => state.pngDownloadUrl,
   },
+  actions: {
+    setWatermarkFromResponse({ commit }, response) {
+      if (response && response.attr && response.attr.watermark) {
+        commit('setWatermark', response.attr.watermark);
+      }
+    },
+  }
 };
 
 export default global;

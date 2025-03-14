@@ -6,7 +6,9 @@ interface AttrProps {
   title: string;
   tips: string;
   free_statement: string;
-  price_str: string
+  pay_price: string;
+  is_pay: string;
+  watermark: string;
 }
 
 export interface RespData<T = []> {
