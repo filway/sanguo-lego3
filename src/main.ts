@@ -33,7 +33,11 @@ export type ICustomAxiosConfig = AxiosRequestConfig & {
   opName?: string
 }
 
+import watermark from './directives/watermark'
+
 const app = createApp(App)
+
+app.use(watermark)
 
 const baseApiURL = 'https://lgg.qiyuan3.cn'
 

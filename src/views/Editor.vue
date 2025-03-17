@@ -31,7 +31,11 @@
     </van-row>
     <van-row class="content" :style="{ backgroundColor: currentBackColor }">
       <van-col span="24">
-        <div class="logo-box" v-for="(logo, key) in logoList" :key="key">
+        <div class="logo-box" v-for="(logo, key) in logoList" :key="key" v-watermark="{ 
+      text: watermark, 
+      textColor: '#ccc', 
+      font: '16px Arial' 
+    }">
           <!-- <van-loading
             class="logoLoading"
             v-show="createLogoLoading"
@@ -283,6 +287,9 @@ export default defineComponent({
     HeaderNav,
   },
   setup() {
+    // 水印
+    const watermark = sessionStorage.getItem('watermark') || 'Logo设计'
+
     const route = useRoute()
     const svgRef = ref<SVGElement | null>(null)
     let logoList = ref<TemplateProps[]>([])
@@ -733,6 +740,7 @@ export default defineComponent({
       currentImageColor,
       sloganEffectItemActive,
       toggleSloganEffectItemActive,
+      watermark
     }
   },
 })
@@ -948,6 +956,7 @@ export default defineComponent({
 
     .logo-box {
       height: 100%;
+      position: relative;
 
       svg {
         width: 100%;

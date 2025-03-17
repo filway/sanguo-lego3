@@ -6,7 +6,11 @@
       </div>
       <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
         <van-swipe-item v-for="(item, index) in previewData" :key="index">
-          <div :style="{ backgroundImage: 'url(' + item.url + ')' }" :class="`bgimg bgimg_${index}`" v-html="item.svg">
+          <div v-watermark="{ 
+      text: watermark, 
+      textColor: '#ccc', 
+      font: '16px Arial' 
+    }" :style="{ backgroundImage: 'url(' + item.url + ')' }" :class="`bgimg bgimg_${index}`" v-html="item.svg">
           </div>
         </van-swipe-item>
       </van-swipe>
@@ -54,6 +58,10 @@ export default defineComponent({
     bgColor: {
       type: String,
       default: "#ffffff",
+    },
+    watermark: {
+      type: String,
+      default: "",
     },
   },
   emits: ["close"],

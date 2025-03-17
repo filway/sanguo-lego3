@@ -55,6 +55,7 @@ const global: Module<GlobalStatus, GlobalDataProps> = {
     isOpLoading: (state) => (opName: string) => state.opNames[opName],
     getjpgDownloadUrl: (state) => state.jpgDownloadUrl,
     getpngDownloadUrl: (state) => state.pngDownloadUrl,
+    watermark: (state) => state.watermark,
   },
   actions: {
     setWatermarkFromResponse({ commit }, response) {

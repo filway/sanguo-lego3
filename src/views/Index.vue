@@ -2,7 +2,7 @@
 <template>
   <div class="homepage-container" :style="{ background: '#f8f8f8' }">
     <preview-dialog @close="closePreviewDialog" :show="showPreview" :logoId="currentId" :previewData="previewData"
-      @clickDownload="openDownloadDialog"></preview-dialog>
+      @clickDownload="openDownloadDialog" :watermark="watermark"></preview-dialog>
     <van-row class="logoTips">
       <van-col span="24">Logo结果选择</van-col>
     </van-row>
@@ -28,7 +28,11 @@
         <!-- 新的效果图构造 -->
         <div class="svg-wrapper" :id="`svgContainer-${key}-${item.id}`" :style="(item.bgToMainColor || (item.id === '419186' && logo.main_color !== '#000000')) ? `background-color:
           ${logo.main_color}; aspect-ratio: ${item.aspectRatio}` : `background-color: ${logo.bg_color}; aspect-ratio:
-          ${item.aspectRatio}`" v-for="(item) in imgNameArrNew" :key="item.id">
+          ${item.aspectRatio}`" v-for="(item) in imgNameArrNew" :key="item.id" v-watermark="{ 
+      text: watermark, 
+      textColor: '#ccc', 
+      font: '16px Arial' 
+    }">
           <svg :class="`logoSvg logoSvg${key}-1`" xmlns="http://www.w3.org/2000/svg" :viewBox="item.viewBox">
             <defs>
               <filter :id="`colorize1-${key}`">
@@ -63,8 +67,12 @@
 
         <div :class="`page-bg page-bg-06 page-bg-img page-insert-${key}`" :style="`background-image: url(` +
           require(`../assets/img/cj2/${bgImgIndexArr[key]}/8.jpg`) +
-          `);height: 80vw`
-          "></div>
+          `);height: 80vw; position: relative`
+          " v-watermark="{ 
+      text: watermark, 
+      textColor: '#ccc', 
+      font: '16px Arial' 
+    }" ></div>
       </div>
     </div>
 
@@ -128,7 +136,7 @@ export default defineComponent({
   },
   setup() {
     // 水印
-    const watermark = computed(() => store.state.global.watermark)
+    const watermark = sessionStorage.getItem('watermark') || 'Logo设计'
 
     const showPreview = ref(false)
     const isLoading = computed(() => store.getters.isLoading)
@@ -257,7 +265,7 @@ export default defineComponent({
       const svgHtmlArrNew = getSvgHtmlNew(logoList.value)
       svgHtmlArr.forEach((item, index) => {
         for (let k = 0; k < 9; k++) {
-          $('.page-screen').eq(index).find('.page-bg-img').eq(k).html(item[k])
+          $('.page-screen').eq(index).find('.page-bg-img').eq(k).append(item[k])
         }
       })
       svgHtmlArrNew.forEach((item, index) => {
@@ -315,7 +323,8 @@ export default defineComponent({
       isShowFreeStatement,
       confirmTextColor,
       confirmText,
-      onCloseFreeStatementDialog
+      onCloseFreeStatementDialog,
+      watermark
     }
   },
 })
@@ -447,7 +456,7 @@ export default defineComponent({
     }
 
     color: #fff;
-    background: #7ecacc;
+    background: #ff9900;
   }
 
   min-height: 100vh;

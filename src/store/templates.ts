@@ -70,6 +70,7 @@ const templates: Module<TemplatesProps, GlobalDataProps> = {
       sessionStorage.setItem("is_pay", rawData.attr ? rawData.attr.is_pay : "");
       sessionStorage.setItem("pay_price", rawData.attr ? rawData.attr.pay_price : "");
       store.dispatch("setWatermarkFromResponse", rawData);
+      sessionStorage.setItem("watermark", rawData.attr ? rawData.attr.watermark : "");
     },
     translate(state, rawData: RespData<string>) {
       state.currentNameEn = rawData.data;

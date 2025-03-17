@@ -3,13 +3,21 @@
     <header-nav :title="'logo下载'" @back="$router.back(-1)" />
     <van-row class="content" :style="{ backgroundColor: bgColor }">
       <van-col span="24" v-if="!isSvgCode">
-        <div class="logo-box" v-for="(logo, key) in logoList" :key="key">
+        <div class="logo-box" v-for="(logo, key) in logoList" :key="key" v-watermark="{ 
+      text: watermark, 
+      textColor: '#ccc', 
+      font: '16px Arial' 
+    }">
           <svg :style="{ backgroundColor: '#ffffff' }" ref="svgRef" baseProfile="full" version="1.1"
             :class="'svg' + key" viewBox="0 0 686 448" xmlns="http://www.w3.org/2000/svg" />
         </div>
       </van-col>
       <van-col span="24" v-else>
-        <div class="logo-box" ref="logoRef" id="logoBox"></div>
+        <div class="logo-box" ref="logoRef" id="logoBox" v-watermark="{ 
+      text: watermark, 
+      textColor: '#ccc', 
+      font: '16px Arial' 
+    }"></div>
       </van-col>
     </van-row>
     <div class="buttonBox">
@@ -109,6 +117,9 @@ export default defineComponent({
     HeaderNav,
   },
   setup() {
+    // 水印
+    const watermark = sessionStorage.getItem('watermark') || 'Logo设计'
+    
     const svgCode = localStorage.getItem('downloadsvg') as string
     const isSvgCode = svgCode?.length > 1
     const logoRef = ref<HTMLElement>()
@@ -320,7 +331,7 @@ export default defineComponent({
       if (isSvgCode) {
         const logoBoxDom = document.getElementById('logoBox')
         if (logoBoxDom) {
-          logoBoxDom.innerHTML = svgCode
+          logoBoxDom.innerHTML += svgCode
           //给svg元素添加背景颜色
           SVG('.svg0').css('background', bgColor)
         }
@@ -357,7 +368,8 @@ export default defineComponent({
       isShowQrCode,
       qrCodeUrl,
       isPaid,
-      payPrice
+      payPrice,
+      watermark
     }
   },
 })
@@ -378,7 +390,7 @@ export default defineComponent({
 
     .logo-box {
       height: 100%;
-
+      position: relative;
       svg {
         width: 100%;
         height: 100%;
