@@ -36,22 +36,75 @@ function mountWatermark(el: WatermarkElement, binding: DirectiveBinding<Watermar
       parentNode.removeChild(existingWatermark);
     }
 
+    // Get parent dimensions for better sizing
+    const parentRect = parentNode.getBoundingClientRect();
+    
+    // Canvas should be large enough to create a pattern that will tile well
+    // but not so large it causes performance issues
+    const canvasWidth = width || Math.min(Math.max(300, parentRect.width / 2), 600);
+    const canvasHeight = height || Math.min(Math.max(200, parentRect.height / 2), 400);
+    
     // Create new watermark
     const can = document.createElement('canvas');
-    parentNode.appendChild(can);
-    can.width = width || 200;
-    can.height = height || 140;
+    can.width = canvasWidth;
+    can.height = canvasHeight;
     can.style.display = 'none';
     
     const cans = can.getContext('2d');
     if (!cans) return;
     
-    cans.rotate(-20 * Math.PI / 180);
-    cans.font = font || "16px Arial";
-    cans.fillStyle = textColor || "#ccc";
-    cans.textAlign = 'left';
+    // Clear the canvas
+    cans.clearRect(0, 0, canvasWidth, canvasHeight);
+    
+    // Set text properties - use a lighter color and appropriate font size
+    const fontSize = parseInt(font?.match(/\d+/)?.[0] || '14');
+    cans.font = font || `${fontSize}px Arial`;
+    cans.fillStyle = textColor || "rgba(128, 128, 128, 0.3)";
+    cans.textAlign = 'center';
     cans.textBaseline = 'middle';
-    cans.fillText(str, parseInt(fillTextX), can.height / 2);
+    
+    // Calculate text metrics for spacing
+    const textWidth = cans.measureText(str).width;
+    
+    // Determine ideal spacing for at least 3 diagonal rows
+    // We want the rows to be evenly spaced based on the canvas size
+    const diagonalLength = Math.sqrt(canvasWidth * canvasWidth + canvasHeight * canvasHeight);
+    // 减小 1.5 的值会增加行数，使水印更密集
+    const numRows = Math.max(3, Math.ceil(diagonalLength / (textWidth * 1.5)));
+    const rowSpacing = diagonalLength / numRows;
+    
+    // Calculate column spacing based on text width
+    // 减小 2 的值会使列间距变小，水印更密集
+    const colSpacing = textWidth * 1.42; // Space between columns
+    
+    // Save the canvas state before rotating
+    cans.save();
+    
+    // Rotate the entire canvas for diagonal text (30 degrees for top-left to bottom-right)
+    cans.translate(canvasWidth / 2, canvasHeight / 2);
+    cans.rotate(30 * Math.PI / 180);
+    
+    // Calculate the diagonal bounds to ensure we cover the rotated canvas
+    const diagonalWidth = Math.abs(canvasWidth * Math.cos(30 * Math.PI / 180)) + 
+                          Math.abs(canvasHeight * Math.sin(30 * Math.PI / 180));
+    const diagonalHeight = Math.abs(canvasWidth * Math.sin(30 * Math.PI / 180)) + 
+                           Math.abs(canvasHeight * Math.cos(30 * Math.PI / 180));
+    
+    // Calculate starting positions to ensure we cover the entire canvas
+    const startX = -diagonalWidth;
+    const endX = diagonalWidth;
+    const startY = -diagonalHeight;
+    const endY = diagonalHeight;
+    
+    // Draw the text in a grid pattern
+    for (let y = startY; y <= endY; y += rowSpacing) {
+      for (let x = startX; x <= endX; x += colSpacing) {
+        cans.fillText(str, x, y);
+      }
+    }
+    
+    // Restore the canvas state
+    cans.restore();
     
     // Create a div and position it to cover the parent element
     const div = document.createElement('div');
@@ -65,11 +118,17 @@ function mountWatermark(el: WatermarkElement, binding: DirectiveBinding<Watermar
     div.style.width = '100%';
     div.style.height = '100%';
     div.style.background = 'url(' + can.toDataURL('image/png') + ')';
+    div.style.backgroundRepeat = 'repeat'; // Ensure pattern repeats
     
-    // Make sure parent has position relative
+    // Make sure parent has position relative for proper absolute positioning
     const computedStyle = window.getComputedStyle(parentNode);
     if (computedStyle.position === 'static') {
       parentNode.style.position = 'relative';
+    }
+    
+    // Remove the canvas from DOM after creating the data URL
+    if (can.parentNode === parentNode) {
+      parentNode.removeChild(can);
     }
     
     parentNode.appendChild(div);

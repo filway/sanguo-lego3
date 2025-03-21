@@ -8,8 +8,6 @@
         <van-swipe-item v-for="(item, index) in previewData" :key="index">
           <div v-watermark="{ 
       text: watermark, 
-      textColor: '#ccc', 
-      font: '16px Arial' 
     }" :style="{ backgroundImage: 'url(' + item.url + ')' }" :class="`bgimg bgimg_${index}`" v-html="item.svg">
           </div>
         </van-swipe-item>

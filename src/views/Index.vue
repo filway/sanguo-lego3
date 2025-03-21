@@ -30,8 +30,6 @@
           ${logo.main_color}; aspect-ratio: ${item.aspectRatio}` : `background-color: ${logo.bg_color}; aspect-ratio:
           ${item.aspectRatio}`" v-for="(item) in imgNameArrNew" :key="item.id" v-watermark="{ 
       text: watermark, 
-      textColor: '#ccc', 
-      font: '16px Arial' 
     }">
           <svg :class="`logoSvg logoSvg${key}-1`" xmlns="http://www.w3.org/2000/svg" :viewBox="item.viewBox">
             <defs>
@@ -70,8 +68,6 @@
           `);height: 80vw; position: relative`
           " v-watermark="{ 
       text: watermark, 
-      textColor: '#ccc', 
-      font: '16px Arial' 
     }" ></div>
       </div>
     </div>
@@ -392,6 +388,7 @@ export default defineComponent({
     bottom: 0;
     padding-bottom: constant(safe-area-inset-bottom);
     padding-bottom: env(safe-area-inset-bottom);
+    z-index: 3;
 
     .pagenation-big {
       background-color: #0201fd;

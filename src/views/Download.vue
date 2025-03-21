@@ -4,9 +4,7 @@
     <van-row class="content" :style="{ backgroundColor: bgColor }">
       <van-col span="24" v-if="!isSvgCode">
         <div class="logo-box" v-for="(logo, key) in logoList" :key="key" v-watermark="{ 
-      text: watermark, 
-      textColor: '#ccc', 
-      font: '16px Arial' 
+      text: watermark
     }">
           <svg :style="{ backgroundColor: '#ffffff' }" ref="svgRef" baseProfile="full" version="1.1"
             :class="'svg' + key" viewBox="0 0 686 448" xmlns="http://www.w3.org/2000/svg" />
@@ -14,9 +12,7 @@
       </van-col>
       <van-col span="24" v-else>
         <div class="logo-box" ref="logoRef" id="logoBox" v-watermark="{ 
-      text: watermark, 
-      textColor: '#ccc', 
-      font: '16px Arial' 
+      text: watermark,
     }"></div>
       </van-col>
     </van-row>

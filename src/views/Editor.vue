@@ -32,9 +32,7 @@
     <van-row class="content" :style="{ backgroundColor: currentBackColor }">
       <van-col span="24">
         <div class="logo-box" v-for="(logo, key) in logoList" :key="key" v-watermark="{ 
-      text: watermark, 
-      textColor: '#ccc', 
-      font: '16px Arial' 
+      text: watermark,
     }">
           <!-- <van-loading
             class="logoLoading"
