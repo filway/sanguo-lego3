@@ -41,8 +41,8 @@ function mountWatermark(el: WatermarkElement, binding: DirectiveBinding<Watermar
     
     // Canvas should be large enough to create a pattern that will tile well
     // but not so large it causes performance issues
-    const canvasWidth = width || Math.min(Math.max(300, parentRect.width / 2), 600);
-    const canvasHeight = height || Math.min(Math.max(200, parentRect.height / 2), 400);
+    const canvasWidth = width || 250
+    const canvasHeight = height || 100
     
     // Create new watermark
     const can = document.createElement('canvas');
@@ -57,9 +57,9 @@ function mountWatermark(el: WatermarkElement, binding: DirectiveBinding<Watermar
     cans.clearRect(0, 0, canvasWidth, canvasHeight);
     
     // Set text properties - use a lighter color and appropriate font size
-    const fontSize = parseInt(font?.match(/\d+/)?.[0] || '14');
+    const fontSize = parseInt(font?.match(/\d+/)?.[0] || '16');
     cans.font = font || `${fontSize}px Arial`;
-    cans.fillStyle = textColor || "rgba(128, 128, 128, 0.3)";
+    cans.fillStyle = textColor || "rgba(128, 128, 128, 0.8)";
     cans.textAlign = 'center';
     cans.textBaseline = 'middle';
     
@@ -70,12 +70,12 @@ function mountWatermark(el: WatermarkElement, binding: DirectiveBinding<Watermar
     // We want the rows to be evenly spaced based on the canvas size
     const diagonalLength = Math.sqrt(canvasWidth * canvasWidth + canvasHeight * canvasHeight);
     // 减小 1.5 的值会增加行数，使水印更密集
-    const numRows = Math.max(3, Math.ceil(diagonalLength / (textWidth * 1.5)));
+    const numRows = Math.max(3, Math.ceil(diagonalLength / (textWidth * 1.2)));
     const rowSpacing = diagonalLength / numRows;
     
     // Calculate column spacing based on text width
     // 减小 2 的值会使列间距变小，水印更密集
-    const colSpacing = textWidth * 1.42; // Space between columns
+    const colSpacing = textWidth * 1.2; // Space between columns
     
     // Save the canvas state before rotating
     cans.save();
@@ -84,11 +84,14 @@ function mountWatermark(el: WatermarkElement, binding: DirectiveBinding<Watermar
     cans.translate(canvasWidth / 2, canvasHeight / 2);
     cans.rotate(30 * Math.PI / 180);
     
-    // Calculate the diagonal bounds to ensure we cover the rotated canvas
-    const diagonalWidth = Math.abs(canvasWidth * Math.cos(30 * Math.PI / 180)) + 
-                          Math.abs(canvasHeight * Math.sin(30 * Math.PI / 180));
-    const diagonalHeight = Math.abs(canvasWidth * Math.sin(30 * Math.PI / 180)) + 
-                           Math.abs(canvasHeight * Math.cos(30 * Math.PI / 180));
+   // Add safety margin to ensure text isn't cut off at canvas edges
+   const safetyMargin = fontSize * 1.5;
+    
+   // Calculate the rotated bounds with safety margin
+   const diagonalWidth = Math.abs((canvasWidth + safetyMargin) * Math.cos(30 * Math.PI / 180)) + 
+                        Math.abs((canvasHeight + safetyMargin) * Math.sin(30 * Math.PI / 180));
+   const diagonalHeight = Math.abs((canvasWidth + safetyMargin) * Math.sin(30 * Math.PI / 180)) + 
+                         Math.abs((canvasHeight + safetyMargin) * Math.cos(30 * Math.PI / 180));
     
     // Calculate starting positions to ensure we cover the entire canvas
     const startX = -diagonalWidth;
@@ -118,7 +121,11 @@ function mountWatermark(el: WatermarkElement, binding: DirectiveBinding<Watermar
     div.style.width = '100%';
     div.style.height = '100%';
     div.style.background = 'url(' + can.toDataURL('image/png') + ')';
-    div.style.backgroundRepeat = 'repeat'; // Ensure pattern repeats
+
+     // Key improvement: control the repeat size to ensure dense pattern
+    // Smaller values create a denser pattern
+    div.style.backgroundSize = `${canvasWidth/2}px ${canvasHeight/2}px`;
+    div.style.backgroundRepeat = 'repeat';
     
     // Make sure parent has position relative for proper absolute positioning
     const computedStyle = window.getComputedStyle(parentNode);
@@ -157,7 +164,7 @@ function mountWatermark(el: WatermarkElement, binding: DirectiveBinding<Watermar
         // Add new watermark if not paid
         if (currentPayStatus !== '1' && binding.value?.text) {
           addWaterMarker(
-            binding.value.text, 
+            sessionStorage.getItem('watermark') || 'Logo设计', 
             el, 
             binding.value.width, 
             binding.value.height, 
