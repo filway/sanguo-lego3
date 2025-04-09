@@ -9,6 +9,7 @@ interface AttrProps {
   pay_price: string;
   is_pay: string;
   watermark: string;
+  alert_msg: string;
 }
 
 export interface RespData<T = []> {

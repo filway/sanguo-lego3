@@ -37,6 +37,7 @@ export interface TemplatesProps {
   currentNameEn?: string;
   tips: string | undefined;
   free_statement: string | undefined;
+  alert_msg: string | undefined;
 }
 
 const stateStroage = sessionStorage.getItem("state");
@@ -52,6 +53,7 @@ const templates: Module<TemplatesProps, GlobalDataProps> = {
     title: "",
     tips: "",
     free_statement: "",
+    alert_msg: "",
   },
   mutations: {
     fetchTemplates(state, rawData: RespListData<TemplateProps[]>) {
@@ -66,9 +68,11 @@ const templates: Module<TemplatesProps, GlobalDataProps> = {
       state.title = rawData.attr?.title;
       state.tips = rawData.attr?.tips;
       state.free_statement = rawData.attr?.free_statement;
+      state.alert_msg = rawData.attr?.alert_msg;
       sessionStorage.setItem("wx", rawData.attr ? rawData.attr.wx : "");
       sessionStorage.setItem("is_pay", rawData.attr ? rawData.attr.is_pay : "");
       sessionStorage.setItem("pay_price", rawData.attr ? rawData.attr.pay_price : "");
+      sessionStorage.setItem("alert_msg", rawData.attr ? rawData.attr.alert_msg : "");
       store.dispatch("setWatermarkFromResponse", rawData);
       sessionStorage.setItem("watermark", rawData.attr ? rawData.attr.watermark : "");
     },

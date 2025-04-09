@@ -114,7 +114,7 @@
 <script lang="ts">
 import { computed, defineComponent, onBeforeMount, onMounted, provide, ref } from 'vue'
 import { GlobalDataProps } from '../store/index'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import useCreateLogo from '@/hooks/useCreateLogo'
 import PreviewDialog from '@/components/PreviewDialog.vue'
@@ -137,6 +137,7 @@ export default defineComponent({
     const showPreview = ref(false)
     const isLoading = computed(() => store.getters.isLoading)
     const route = useRoute()
+    const router = useRouter()
     const currentId = ref(0)
     const currentIndex = ref(0)
     const store = useStore<GlobalDataProps>()
@@ -251,6 +252,12 @@ export default defineComponent({
         data: { sn: sn || '' },
       })
 
+      // 检查是否有过期提示信息
+      if (store.state.templates.alert_msg) {
+        // 如果存在过期提示，则跳转到过期页面
+        router.push('/expired')
+        return
+      }
 
       // 提前请求后端接口拿到横版和竖版列表字体的base64, 然后引入到head标签里面的style里面
       const firstItem = logoList.value[0]

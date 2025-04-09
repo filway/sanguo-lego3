@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Index from "../views/Index.vue";
 import Editor from "../views/Editor.vue";
 import Download from "../views/Download.vue";
+import Expired from "../views/Expired.vue";
 import { SVG } from "@svgdotjs/svg.js";
 
 declare module "vue-router" {
@@ -31,6 +32,12 @@ const router = createRouter({
       name: "download",
       component: Download,
       meta: { title: "下载", disableLoading: true },
+    },
+    {
+      path: "/expired",
+      name: "expired",
+      component: Expired,
+      meta: { title: "访问受限", disableLoading: true },
     },
   ],
 });
